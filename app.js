@@ -5,7 +5,7 @@ var express = require('express'),
 	path =  require('path'),
 	mongoose = require('mongoose'),
 	swig = require('swig'),
-    passport = require('passport'),
+	passport = require('passport'),
 	config = require('./config/config');
 
 // Get environment variable
