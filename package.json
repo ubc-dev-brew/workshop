@@ -2,10 +2,17 @@
   "name": "workshop",
   "version": "1.0.0",
   "description": "UBC Launchpad - A social network for creative professionals",
+  "repository": "https://github.com/ubc-dev-brew/workshop.git",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "DevBrew",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.3",
+    "gulp": "^3.9.0",
+    "passport": "^0.3.0",
+    "swig": "^1.4.2"
+  }
 }
