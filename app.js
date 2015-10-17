@@ -5,7 +5,17 @@ var express = require('express'),
 	path =  require('path'),
 	mongoose = require('mongoose'),
 	swig = require('swig'),
-    passport = require('passport');
+    passport = require('passport'),
+	config = require('./config/config');
+
+// Get environment variable
+var env = process.env.NODE_ENV || 'development';
+
+if(env === 'development') {
+	console.log(config.message);
+} else{
+	console.log(config.message);
+}
 
 // Resolve paths to client files.
 var client_files = path.resolve(__dirname, './client/');

@@ -1,5 +1,4 @@
 // This file contains the primary routes for the platform
-
 module.exports = function(express, app) {
 	var router = express.Router();
 	
