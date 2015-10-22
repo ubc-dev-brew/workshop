@@ -11,8 +11,9 @@ var dev = typeof(argv.d) !== 'undefined';
 
 /*
 	Finds .scss files in public/css/src and any of its
-	subdirectories, compiles them to css, and puts the
-	compiled .css files into the public/css/dist directory.
+	subdirectories and compiles them to css. If -d is
+	not specified, minifies and concatenates all source
+	files. Then, places file(s) in public/css/dist
 */
 gulp.task('sass', function() {
 	return gulp.src('./public/css/src/**/*.scss')
