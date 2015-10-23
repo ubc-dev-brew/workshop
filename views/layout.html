@@ -9,8 +9,15 @@
 
         {% block head %}
         <link rel="" type="image/x-icon" href="" />
-        <link rel="stylesheet" href="">
-        <link rel="stylesheet" href="">
+				
+				{% if dev %}
+				<!-- List of individually compiled css files -->
+				<link rel="stylesheet" href="/public/css/dist/style_1.css" />
+				<link rel="stylesheet" href="/public/css/dist/style_2.css" />
+				{% else %}
+				<!-- Single compiled & minified css file -->
+        <link rel="stylesheet" href="/public/css/dist/main.min.css" />
+				{% endif %}
         {% endblock head %}
     </head>
 
@@ -20,6 +27,11 @@
         {% endblock content %}
         
         {% block scripts %}
+				{% if dev %}
+				<script src="/public/js/dist/script_1.js"></script>
+				<script src="/public/js/dist/script_2.js"></script>
+				{% else %}
+				<script src="/public/js/dist/main.min.js"></script>
         {% endblock scripts %}
     </body>
 </html>
