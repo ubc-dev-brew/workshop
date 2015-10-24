@@ -9,14 +9,17 @@ var express = require('express'),
 	config = require('./config/config');
 
 // Get environment variable
-var env = process.env.NODE_ENV || 'development';
+var env = config.env;
 console.log(config.message);
+
+// Set environment for swig
+swig.setDefaults({ locals: { env: env } });
 
 // Resolve paths to client files.
 var client_files = path.resolve(__dirname, './client/');
 
 // Set a 30 second connection timeout for mongodb
-var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
+var mongoOptions = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
                 replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
 
 // Register our templating engine
@@ -35,14 +38,16 @@ app.set('port', (process.env.PORT || 5000));
 
 // Connect to MongoDB
 var mongodbUri = 'mongodb://admin:devbrewadmin@ds043324.mongolab.com:43324/devbrew-workshop';
-mongoose.connect(mongodbUri, options);
+mongoose.connect(mongodbUri, mongoOptions);
 
 var conn = mongoose.connection;
 
+// MongoDB error event
 conn.on('error', console.error.bind(console, 'connection error:'));
 
 conn.once('open', function callback () {
-	// Application...
+	// Connection to mongoDB successful...
+	console.log('Connected to mongoDB')
 });
 
 app.listen(app.get('port'), function() {
