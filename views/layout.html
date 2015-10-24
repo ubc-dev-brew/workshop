@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html html lang="en-us">
+      <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>{% block title %}WorkShop, INC.{% endblock %}</title>
+
+        {% block head %}
+        <link rel="" type="image/x-icon" href="" />
+				
+				{% if env == 'development' %}
+                    <!-- List of individually compiled css files -->
+                    <link rel="stylesheet" href="/css/dist/source.css" />
+				{% else %}
+                    <!-- Single compiled & minified css file -->
+                    <link rel="stylesheet" href="/css/dist/main.min.css" />
+				{% endif %}
+        {% endblock head %}
+    </head>
+
+    <body>
+        {% block content %}
+        <h1>Welcome to WorkShop</h1>
+        {% endblock content %}
+        
+        {% block scripts %}
+				{% if env == 'development' %}
+                    <script src="/js/dist/source.js"></script>
+				{% else %}
+				    <script src="/js/dist/main.min.js"></script>
+				{% endif %}
+        {% endblock scripts %}
+    </body>
+</html>

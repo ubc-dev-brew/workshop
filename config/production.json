@@ -1,0 +1,4 @@
+{
+	"env" : "production",
+	"message" : "You are running in prod. mode"
+}
