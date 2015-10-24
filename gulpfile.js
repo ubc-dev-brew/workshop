@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var glob = require('glob');
-var minifyCSS = require('gulp-minify-css');
+var minify = require('gulp-minify-css');
 var concat = require('gulp-concat');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
@@ -23,7 +23,7 @@ var dev = typeof(argv.d) !== 'undefined';
 gulp.task('sass', function() {
 	return gulp.src(['./public/css/src/**/*.scss'])
 		.pipe(sass())
-		.pipe(gulpif(!dev, minifyCSS()))
+		.pipe(gulpif(!dev, minify()))
 		.pipe(gulpif(!dev, concat('main.min.css')))
 		.pipe(gulp.dest('./public/css/dist'));
 });
@@ -34,15 +34,14 @@ gulp.task('sass', function() {
 	uglifies and concatenates all source files. Then places
 	file(s) in public/js/dist
 */
-gulp.task('browserify', function(cb) {
+gulp.task('js', function(cb) {
 	glob('./public/js/src/*.js', function(err, files) {
 		var browserifier = browserify();
 		files.forEach(function(file) {
 			browserifier.add(file)
 			if(dev) {
-				// Individually process each file
+				// Individually process each file and reset browserifier
 				_processor(browserifier.bundle(), _filename(file));
-				// Reset browserifier
 				browserifier = browserify();
 			}
 		});

@@ -10,12 +10,7 @@ var express = require('express'),
 
 // Get environment variable
 var env = process.env.NODE_ENV || 'development';
-
-if(env === 'development') {
-	console.log(config.message);
-} else{
-	console.log(config.message);
-}
+console.log(config.message);
 
 // Resolve paths to client files.
 var client_files = path.resolve(__dirname, './client/');
@@ -38,4 +33,4 @@ app.set('port', (process.env.PORT || 5000));
 app.listen(app.get('port'), function() {
 	console.log('Node app is running on port',
 	app.get('port'));
-	});
+});
