@@ -12,6 +12,9 @@ var express = require('express'),
 var env = config.env;
 console.log(config.message);
 
+// Set environment for swig
+swig.setDefaults({ locals: { env: env } });
+
 // Resolve paths to client files.
 var client_files = path.resolve(__dirname, './client/');
 
