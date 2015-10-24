@@ -12,12 +12,13 @@
   "dependencies": {
     "consolidate": "^0.13.1",
     "express": "^4.13.3",
+    "glob": "^5.0.15",
     "mongoose": "^4.1.11",
     "passport": "^0.3.0",
     "swig": "^1.4.2"
   },
   "devDependencies": {
-		"browserify": "^11.2.0",
+    "browserify": "^11.2.0",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
     "gulp-if": "^2.0.0",
