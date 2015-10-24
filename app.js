@@ -9,7 +9,7 @@ var express = require('express'),
 	config = require('./config/config');
 
 // Get environment variable
-var env = process.env.NODE_ENV || 'development';
+var env = config.env;
 console.log(config.message);
 
 // Resolve paths to client files.
@@ -22,7 +22,6 @@ app.set('views', __dirname + '/views');
 
 // Express middleware to serve static files
 app.use(express.static('public'));
-
 
 // Get routes from routes/main.js
 require('./routes/main.js')(express,app);

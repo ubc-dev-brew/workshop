@@ -10,7 +10,7 @@
         {% block head %}
         <link rel="" type="image/x-icon" href="" />
 				
-				{% if dev %}
+				{% if env == 'development' %}
 				<!-- List of individually compiled css files -->
 				<link rel="stylesheet" href="/public/css/dist/style_1.css" />
 				<link rel="stylesheet" href="/public/css/dist/style_2.css" />
@@ -27,7 +27,7 @@
         {% endblock content %}
         
         {% block scripts %}
-				{% if dev %}
+				{% if env == 'development' %}
 				<script src="/public/js/dist/script_1.js"></script>
 				<script src="/public/js/dist/script_2.js"></script>
 				{% else %}
