@@ -1,14 +1,14 @@
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var glob = require('glob');
-var minify = require('gulp-minify-css');
-var concat = require('gulp-concat');
-var browserify = require('browserify');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var uglify = require('gulp-uglify');
-var gulpif = require('gulp-if');
-var argv = require('minimist')(process.argv.slice(2));
+var gulp = require('gulp'),
+	sass = require('gulp-sass'),
+	glob = require('glob'),
+	minify = require('gulp-minify-css'),
+	concat = require('gulp-concat'),
+	browserify = require('browserify'),
+	source = require('vinyl-source-stream'),
+	buffer = require('vinyl-buffer'),
+	uglify = require('gulp-uglify'),
+	gulpif = require('gulp-if'),
+	argv = require('minimist')(process.argv.slice(2));
 
 // If in dev mode, type 'gulp <task> -d'
 // If in production mode, omit '-d'
