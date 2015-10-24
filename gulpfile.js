@@ -14,6 +14,10 @@ var argv = require('minimist')(process.argv.slice(2));
 // If in production mode, omit '-d'
 var dev = typeof(argv.d) !== 'undefined';
 
+gulp.task('default', function() {
+	
+})
+
 /*
 	Finds .scss files in public/css/src and any of its
 	subdirectories and compiles them to css. If -d is
@@ -49,6 +53,16 @@ gulp.task('js', function(cb) {
 			// Process all files at once
 			_processor(browserifier.bundle(), 'main.min.js');
 		}
+		cb();
+	});
+});
+
+gulp.task('watch', function() {
+	gulp.watch('./public/css/src/**/*.scss', ['sass'], function(event) {
+		console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+	});
+	gulp.watch('./public/js/src/*.js', ['js'], function(event) {
+		console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
 	});
 });
 
