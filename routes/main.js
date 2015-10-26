@@ -12,7 +12,7 @@ module.exports = function(express, app, passport) {
 	});
 	
 	router.post('/login', passport.authenticate('local-login', {
-		successRedirect: '/profile',
+		successRedirect: '/dashboard',
 		failureRedirect: '/',
 		failureFlash: true // Show flash messages
 	}));
@@ -27,16 +27,16 @@ module.exports = function(express, app, passport) {
 	});
 	
 	router.post('/signup', passport.authenticate('local-signup', {
-		successRedirect: '/profile',
+		successRedirect: '/dashboard',
 		failureRedirect: '/signup',
 		failureFlash: true // Show flash messages
 	}));
 	
 	// =====================================
-    // PROFILE PAGE
+    // DASHBOARD PAGE
     // =====================================	
-	router.get('/profile', isLoggedIn, function(req, res){
-		res.render('profile', {
+	router.get('/dashboard', isLoggedIn, function(req, res){
+		res.render('dashboard', {
 			user : req.user
 		});
 	});
