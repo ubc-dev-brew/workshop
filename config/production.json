@@ -1,4 +1,11 @@
 {
 	"env" : "production",
-	"message" : "You are running in prod. mode"
+	"message" : "You are running in prod. mode",
+	"sessionSecret" : "devbrewcopyrightubclaunchpad",
+	"dbCollection" : "users",
+	"facebookAuth" : {
+        "clientID"     : "802462249862590", 
+        "clientSecret"  : "505a68952897d6d5fc9c943f1b4a3115", 
+        "callbackURL"   : "https://ubcdevbrew-workshop.herokuapp.com/auth/facebook/callback"
+    }
 }
