@@ -2,5 +2,10 @@
 	"env" : "development",
 	"message" : "You are running in dev mode",
 	"sessionSecret" : "devbrewisanawesometeam",
-	"dbCollection" : "testusers"
+	"dbCollection" : "testusers",
+	"facebookAuth" : {
+        "clientID"     : "802463839862431", // your App ID
+        "clientSecret"  : "e32363daeb0545dde8e9e65d03d3db66", // your App Secret
+        "callbackURL"   : "http://localhost:5000/auth/facebook/callback"
+    }
 }
