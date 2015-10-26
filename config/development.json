@@ -1,4 +1,6 @@
 {
 	"env" : "development",
-	"message" : "You are running in dev mode"
+	"message" : "You are running in dev mode",
+	"sessionSecret" : "devbrewisanawesometeam",
+	"dbCollection" : "testusers"
 }

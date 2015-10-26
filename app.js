@@ -6,6 +6,11 @@ var express = require('express'),
 	mongoose = require('mongoose'),
 	swig = require('swig'),
 	passport = require('passport'),
+	flash = require('connect-flash'),
+	cookieParser = require('cookie-parser'),
+	bodyParser = require('body-parser'),
+	session = require('express-session'),
+	ConnectMongo = require('connect-mongo')(session),
 	config = require('./config/config');
 
 // Get environment variable
@@ -15,6 +20,29 @@ console.log(config.message);
 // Set environment for swig
 swig.setDefaults({ locals: { env: env } });
 
+if(env === 'development') {
+	// Express middleware to populate 'req.cookies' so we can access cookies
+    // Set up our application
+	app.use(cookieParser()); // Read cookies for authentication
+    app.use(session({
+        secret: config.sessionSecret,
+        saveUninitialized: true,
+        resave: true,
+        cookie: {}
+    })); // saving cookies to session locally
+} else {
+	// Set up our application
+	app.use(cookieParser()); // Read cookies for authentication
+    app.use(session({
+        secret: config.sessionSecret,
+        saveUninitialized: true,
+        resave: true,
+        store: new ConnectMongo({
+            url: config.dbURL,
+            stringify: true        
+        })    
+    })); // Saving cookies to mongodb when in production
+}
 // Resolve paths to client files.
 var client_files = path.resolve(__dirname, './client/');
 
@@ -22,6 +50,10 @@ var client_files = path.resolve(__dirname, './client/');
 var mongoOptions = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
                 replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
 
+// Pass in passport configuration file
+// Needs to be configured before sending to routes
+require('./config/passport')(passport);
+	
 // Register our templating engine
 app.engine('html', cons.swig);
 app.set('view engine', 'html');
@@ -30,8 +62,17 @@ app.set('views', __dirname + '/views');
 // Express middleware to serve static files
 app.use(express.static('public'));
 
+// Express middleware to populate 'req.body' so we can access POST variables
+app.use(bodyParser.json()); // Parsing html forms
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Set up passport
+app.use(passport.initialize());
+app.use(passport.session()); // Persisting log-in sessions
+app.use(flash()); // For flash messages stored in session
+	
 // Get routes from routes/main.js
-require('./routes/main.js')(express,app);
+require('./routes/main.js')(express, app, passport);
 
 // Set a port to listen to for the server
 app.set('port', (process.env.PORT || 5000));

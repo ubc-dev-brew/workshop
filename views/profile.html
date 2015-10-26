@@ -8,7 +8,9 @@
 
 {% block content %}
 {% parent %}
-<h1>{{message}}</h1>
+<h1>{{user.local.email}}</h1>
+
+    <a href="/logout" class="btn btn-default"><span class="fa fa-user"></span>Logout</a>
 {% endblock content %}
 
 {% block scripts %}

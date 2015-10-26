@@ -1,4 +1,6 @@
 {
 	"env" : "production",
-	"message" : "You are running in prod. mode"
+	"message" : "You are running in prod. mode",
+	"sessionSecret" : "devbrewcopyrightubclaunchpad",
+	"dbCollection" : "users"
 }
