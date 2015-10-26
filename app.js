@@ -31,7 +31,8 @@ app.set('views', __dirname + '/views');
 app.use(express.static('public'));
 
 // Get routes from routes/main.js
-require('./routes/main.js')(express,app);
+require('./routes/main.js')(express, app);
+require('./routes/api.js')(express, app);
 
 // Set a port to listen to for the server
 app.set('port', (process.env.PORT || 5000));
