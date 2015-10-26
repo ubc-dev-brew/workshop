@@ -52,7 +52,7 @@ var mongoOptions = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 
 
 // Pass in passport configuration file
 // Needs to be configured before sending to routes
-require('./config/passport')(passport);
+require('./config/passport')(passport, config);
 	
 // Register our templating engine
 app.engine('html', cons.swig);

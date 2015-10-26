@@ -21,6 +21,7 @@
     "glob": "^5.0.15",
     "mongoose": "^4.1.11",
     "passport": "^0.3.0",
+    "passport-facebook": "^2.0.0",
     "passport-local": "^1.0.0",
     "swig": "^1.4.2"
   },

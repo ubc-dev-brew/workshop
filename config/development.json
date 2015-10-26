@@ -4,8 +4,8 @@
 	"sessionSecret" : "devbrewisanawesometeam",
 	"dbCollection" : "testusers",
 	"facebookAuth" : {
-        "clientID"     : "802463839862431", // your App ID
-        "clientSecret"  : "e32363daeb0545dde8e9e65d03d3db66", // your App Secret
+        "clientID"     : "802463839862431", 
+        "clientSecret"  : "e32363daeb0545dde8e9e65d03d3db66",
         "callbackURL"   : "http://localhost:5000/auth/facebook/callback"
     }
 }

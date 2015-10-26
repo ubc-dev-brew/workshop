@@ -42,13 +42,24 @@ module.exports = function(express, app, passport) {
 	});
 	
 	// =====================================
+    // FACEBOOK ROUTES =====================
+    // =====================================
+	router.get('/auth/facebook', passport.authenticate('facebook', {scope : 'email'}));
+	
+	// Handle callback after authenticaiton
+	router.get('/auth/facebook/callback',
+		passport.authenticate('facebook', {
+			successRedirect : '/dashboard',
+			failureRedirect : '/'
+		}));
+		
+	// =====================================
     // LOGOUT
     // =====================================	
 	router.get('/logout', function(req, res){
 		req.logout();
 		res.redirect('/');
 	});
-	
 	
 	// Route middlewares to check if a user is logged in
 	function isLoggedIn(req, res, next) {

@@ -2,9 +2,10 @@
 
 // Requiring modules
 var LocalStrategy = require('passport-local').Strategy,
+	FacebookStrategy = require('passport-facebook').Strategy,
 	User = require('../models/user');
 	
-module.exports = function(passport) {
+module.exports = function(passport, config) {
 	
 	// ================================================
     // passport session setup 
@@ -81,4 +82,46 @@ module.exports = function(passport) {
 			return done(null, user);
 		});
 	}));
+	
+	
+	
+// =====================================
+// Facebook Strategy
+//======================================
+passport.use(new FacebookStrategy({
+	// Get app details from config files.
+	clientID : config.facebookAuth.clientID,
+	clientSecret : config.facebookAuth.clientSecret,
+	callbackURL : config.facebookAuth.callbackURL	
+},
+
+function(token, refreshToken, profile, done) {
+	
+	process.nextTick(function(){
+		
+		// Find an existing user in DB
+		User.findOne({'facebook.id' : profile.id}, function(err, user){
+			if(err) return done(err);
+			
+			// If a user is found
+			if(user){
+				return done(null, user);
+			} else {
+				// it is a new user
+				var newUser = new User();
+				newUser.facebook.id = profile.id;
+				newUser.facebook.token = token;
+				newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+				newUser.facebook.email = profile.emails ? profile.emails[0].value : '';
+				
+				newUser.save(function(err){
+					if(err) console.log(err);
+					
+					return done(null, newUser);
+				});
+			}
+		});
+	});	
+}));
+
 };
