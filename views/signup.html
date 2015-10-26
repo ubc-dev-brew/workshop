@@ -8,7 +8,7 @@
 
 {% block content %}
 {% parent %}
-{% if (errorMessage.length > 0) %}
+    {% if (errorMessage.length > 0) %}
         <h1>{{errorMessage}}</h1>
     {% endif %}
 
