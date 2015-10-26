@@ -2,13 +2,13 @@
 module.exports = function(express, app) {
 	var router = express.Router();
 	
-	router.get('/', function(req, res){
+	router.get('/', function(req, res) {
 		res.render('index', {
 			message: 'Hello World!'
 		});
 	});
 	
-	router.get('/login', function(req, res){
+	router.get('/login', function(req, res) {
 		res.render('loginPage', {
 			message: 'This is the login page!'
 		});
