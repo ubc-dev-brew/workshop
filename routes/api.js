@@ -1,12 +1,13 @@
-var cloudinary = require('cloudinary');
-var multipart = require('multiparty');
 
-module.exports = function(express, app) {
-	app.use(multipart());
+module.exports = function(express, app, multipart, cloudinary) {
 	var router = express.Router();
 	
+	router.get('/profile-picture', function(req, res) {
+		res.render('upload');
+	});
+	
 	router.post('/profile-picture', function(req, res) {
-		var form = new multiparty.Form();
+		var form = new multipart.Form();
 		var stream = cloudinary.uploader.upload_stream();
 		
 		form.on('error', function(err) {
@@ -21,6 +22,7 @@ module.exports = function(express, app) {
 			if(part.filename) {
 				// The part is a file, stream to Cloudinary
 				part.pipe(stream);
+				part.resume();
 			}
 			part.on('error', function(err) {
 				console.log("Error occurred while streaming a profile picture part: " + err.stack);
@@ -28,6 +30,7 @@ module.exports = function(express, app) {
 		});
 		
 		form.parse(req);
+		res.render('index');
 	});
 	
 	app.use('/api', router);

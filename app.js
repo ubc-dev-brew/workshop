@@ -9,8 +9,10 @@ var express = require('express'),
 	flash = require('connect-flash'),
 	cookieParser = require('cookie-parser'),
 	bodyParser = require('body-parser'),
+	multipart = require('multiparty'),
+	cloudinary = require('cloudinary'),
 	session = require('express-session'),
-	ConnectMongo = require('connect-mongo')(session),
+	connectMongo = require('connect-mongo')(session),
 	config = require('./config/config');
 
 // Get environment variable
@@ -37,7 +39,7 @@ if(env === 'development') {
         secret: config.sessionSecret,
         saveUninitialized: true,
         resave: true,
-        store: new ConnectMongo({
+        store: new connectMongo({
             url: config.dbURL,
             stringify: true        
         })    
@@ -66,14 +68,17 @@ app.use(express.static('public'));
 app.use(bodyParser.json()); // Parsing html forms
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Set up cloudinary
+cloudinary.config(config.cloudinary);
+
 // Set up passport
 app.use(passport.initialize());
 app.use(passport.session()); // Persisting log-in sessions
 app.use(flash()); // For flash messages stored in session
 	
 // Get routes from routes/main.js
-require('./routes/main.js')(express, app);
-require('./routes/api.js')(express, app);
+require('./routes/main.js')(express, app, passport);
+require('./routes/api.js')(express, app, multipart, cloudinary);
 
 // Set a port to listen to for the server
 app.set('port', (process.env.PORT || 5000));
