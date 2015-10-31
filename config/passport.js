@@ -44,8 +44,8 @@ module.exports = function(passport, config) {
 					// If an account does not exist, create one
 					var newUser = new User();
 					
-					newUser.local.email = email;
-					newUser.local.password = newUser.generateHash(password);
+					newUser.auth.local.email = email;
+					newUser.auth.local.password = newUser.generateHash(password);
 					
 					// Save the details of the new user
 					newUser.save(function(err){
