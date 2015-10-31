@@ -35,7 +35,7 @@ module.exports = function(passport, config) {
 		// we want user.findOne to fire when data is sent back
 		process.nextTick(function(){
 			// Check if the user already exists
-			User.findOne({'local.email' : email}, function(err, user){
+			User.findOne({'auth.local.email' : email}, function(err, user){
 				if (err) return done(err);
 				
 				if(user) {
@@ -44,8 +44,8 @@ module.exports = function(passport, config) {
 					// If an account does not exist, create one
 					var newUser = new User();
 					
-					newUser.local.email = email;
-					newUser.local.password = newUser.generateHash(password);
+					newUser.auth.local.email = email;
+					newUser.auth.local.password = newUser.generateHash(password);
 					
 					// Save the details of the new user
 					newUser.save(function(err){
@@ -66,7 +66,7 @@ module.exports = function(passport, config) {
 		passReqToCallback: true // To pass back the request to the callback 
 	},
 	function(req, email, password, done){
-		User.findOne({'local.email' : email}, function(err, user){
+		User.findOne({'auth.local.email' : email}, function(err, user){
 			if (err) return done(err);
 			
 			// If no user is found
@@ -100,7 +100,7 @@ function(token, refreshToken, profile, done) {
 	process.nextTick(function(){
 		
 		// Find an existing user in DB
-		User.findOne({'facebook.id' : profile.id}, function(err, user){
+		User.findOne({'auth.facebook.id' : profile.id}, function(err, user){
 			if(err) return done(err);
 			
 			// If a user is found
@@ -109,10 +109,10 @@ function(token, refreshToken, profile, done) {
 			} else {
 				// it is a new user
 				var newUser = new User();
-				newUser.facebook.id = profile.id;
-				newUser.facebook.token = token;
-				newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
-				newUser.facebook.email = profile.emails ? profile.emails[0].value : '';
+				newUser.auth.facebook.id = profile.id;
+				newUser.auth.facebook.token = token;
+				newUser.auth.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+				newUser.auth.facebook.email = profile.emails ? profile.emails[0].value : '';
 				
 				newUser.save(function(err){
 					if(err) console.log(err);
