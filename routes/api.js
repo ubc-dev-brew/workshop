@@ -22,7 +22,6 @@ module.exports = function(express, app, multipart, cloudinary, User) {
 			}
 			if(part.filename) {
 				// The part is a file, stream to Cloudinary
-				// TODO get url and add to data that will be sent to mongo
 				var stream = cloudinary.uploader.upload_stream(function(result) {
 					user.profilePictureUrl = result.url;
 				});

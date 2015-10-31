@@ -12,7 +12,7 @@ var express = require('express'),
 	multipart = require('multiparty'),
 	cloudinary = require('cloudinary'),
 	session = require('express-session'),
-	connectMongo = require('connect-mongo')(session),
+	ConnectMongo = require('connect-mongo')(session),
 	config = require('./config/config');
 
 // Get environment variable
@@ -22,10 +22,10 @@ console.log(config.message);
 // Set environment for swig
 swig.setDefaults({ locals: { env: env } });
 
+app.use(cookieParser()); // Read cookies for authentication
 if(env === 'development') {
 	// Express middleware to populate 'req.cookies' so we can access cookies
     // Set up our application
-	app.use(cookieParser()); // Read cookies for authentication
     app.use(session({
         secret: config.sessionSecret,
         saveUninitialized: true,
@@ -34,13 +34,12 @@ if(env === 'development') {
     })); // saving cookies to session locally
 } else {
 	// Set up our application
-	app.use(cookieParser()); // Read cookies for authentication
     app.use(session({
         secret: config.sessionSecret,
         saveUninitialized: true,
         resave: true,
-        store: new connectMongo({
-            url: config.dbURL,
+        store: new ConnectMongo({
+            url: config.mongoDb.mongoLabUri,
             stringify: true        
         })    
     })); // Saving cookies to mongodb when in production
