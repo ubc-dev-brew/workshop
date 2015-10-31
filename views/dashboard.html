@@ -8,18 +8,19 @@
 
 {% block content %}
 {% parent %}
-{% if user.local.email %}
-    <h1>{{user.local.email}}</h1>
+{% if user.auth.local.email %}
+    <h1>{{user.auth.local.email}}</h1>
 {% endif %}
-{% if user.facebook.id %}
-    <h1>{{user.facebook.id}}</h1>
+{% if user.auth.facebook.id %}
+    <h1>{{user.auth.facebook.id}}</h1>
 {% endif %}
-{% if user.facebook.name %}
-    <h1{{user.facebook.name}}</h1>
+{% if user.auth.facebook.name %}
+    <h1{{user.auth.facebook.name}}</h1>
 {% endif %}
-{% if user.facebook.email %}
-    <h1>{{user.facebook.email}}</h1>
+{% if user.auth.facebook.email %}
+    <h1>{{user.auth.facebook.email}}</h1>
 {% endif %}
+        
     <a href="/logout" class="btn btn-default"><span class="fa fa-user"></span>Logout</a>
 {% endblock content %}
 
