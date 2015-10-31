@@ -6,16 +6,29 @@ var mongoose = require('mongoose'),
 	config = require('../config/config.js');
 	
 var userSchema  = new Schema({
-    local : {
-		email: String,
-		password: String
+	auth : {
+		local : {
+			email: String,
+			password: String
+		},
+		facebook : {
+			id : String,
+			token : String,
+			email : String,
+			name : String
+		}
 	},
-	facebook : {
-		id : String,
-        token : String,
-        email : String,
-        name : String
-    }	
+	name : {
+		firstName : String,
+		lastName : String
+	},
+	profession : String,
+	bio : String,
+	posts : [{ 
+		imageUrl: String,
+		caption : String 
+	}],
+	profilePictureUrl : String
 });
 
 

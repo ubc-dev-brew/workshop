@@ -48,10 +48,6 @@ if(env === 'development') {
 // Resolve paths to client files.
 var client_files = path.resolve(__dirname, './client/');
 
-// Set a 30 second connection timeout for mongodb
-var mongoOptions = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
-                replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
-
 // Pass in passport configuration file
 // Needs to be configured before sending to routes
 require('./config/passport')(passport, config);
@@ -75,17 +71,12 @@ cloudinary.config(config.cloudinary);
 app.use(passport.initialize());
 app.use(passport.session()); // Persisting log-in sessions
 app.use(flash()); // For flash messages stored in session
-	
-// Get routes from routes/main.js
-require('./routes/main.js')(express, app, passport);
-require('./routes/api.js')(express, app, multipart, cloudinary);
 
 // Set a port to listen to for the server
 app.set('port', (process.env.PORT || 5000));
 
 // Connect to MongoDB
-var mongodbUri = 'mongodb://admin:devbrewadmin@ds043324.mongolab.com:43324/devbrew-workshop';
-mongoose.connect(mongodbUri, mongoOptions);
+mongoose.connect(config.mongoDb.mongoLabUri, config.mongoDb.options);
 
 var conn = mongoose.connection;
 
@@ -96,6 +87,13 @@ conn.once('open', function callback () {
 	// Connection to mongoDB successful...
 	console.log('Connected to mongoDB')
 });
+
+// Mongoose models
+var User = require('./models/user.js');
+
+// Connect routes to Express
+require('./routes/main.js')(express, app, passport);
+require('./routes/api.js')(express, app, multipart, cloudinary, User);
 
 app.listen(app.get('port'), function() {
 	console.log('Node app is running on port',
