@@ -1,4 +1,3 @@
-
 module.exports = function(express, app, multipart, cloudinary, User) {
 	var router = express.Router();
 	
@@ -23,7 +22,7 @@ module.exports = function(express, app, multipart, cloudinary, User) {
 			if(part.filename) {
 				// The part is a file, stream to Cloudinary
 				var stream = cloudinary.uploader.upload_stream(function(result) {
-					user.profilePictureUrl = result.url;
+					userModel.profilePictureUrl = result.url;
 				});
 				part.pipe(stream);
 				part.resume();
@@ -34,7 +33,7 @@ module.exports = function(express, app, multipart, cloudinary, User) {
 		});
 		
 		form.on('field', function(name, value) {
-			user[name] = value;
+			userModel[name] = value;
 		});
 		
 		form.parse(req, function(err, fields, files) {
