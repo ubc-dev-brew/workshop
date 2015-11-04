@@ -1,0 +1,33 @@
+{
+	"env" : "production",
+	"message" : "You are running in prod. mode",
+	"sessionSecret" : "devbrewcopyrightubclaunchpad",
+  "mongoDb" : {
+    "options" : { 
+      "server": { 
+        "socketOptions": { 
+          "keepAlive": 1, 
+          "connectTimeoutMS": 30000 
+        } 
+      }, 
+      "replset": { 
+        "socketOptions": { 
+          "keepAlive": 1, 
+          "connectTimeoutMS" : 30000 
+        } 
+      } 
+    },
+    "mongoLabUri" : "mongodb://admin:devbrewadmin@ds043324.mongolab.com:43324/devbrew-workshop",
+    "collection" : "users"
+  },
+	"facebookAuth" : {
+        "clientID"     : "802462249862590", 
+        "clientSecret"  : "505a68952897d6d5fc9c943f1b4a3115", 
+        "callbackURL"   : "https://ubcdevbrew-workshop.herokuapp.com/auth/facebook/callback"
+    },
+  "cloudinary" : {
+    "cloudName" : "ubc-launch-pad",
+    "apiKey" : "277241555257295",
+    "apiSecret" : "8USVZJHmscSKPGMe7X3ifViSd-I"
+  }
+}

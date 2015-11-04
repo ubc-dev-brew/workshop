@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block title %}{% parent %} - Home{% endblock %}
+
+{% block head %}
+    {% parent %}
+{% endblock head %}
+
+{% block content %}
+{% parent %}
+{% if user.auth.local.email %}
+    <h1>{{user.auth.local.email}}</h1>
+{% endif %}
+{% if user.auth.facebook.id %}
+    <h1>{{user.auth.facebook.id}}</h1>
+{% endif %}
+{% if user.auth.facebook.name %}
+    <h1>{{user.auth.facebook.name}}</h1>
+{% endif %}
+{% if user.auth.facebook.email %}
+    <h1>{{user.auth.facebook.email}}</h1>
+{% endif %}
+        
+    <a href="/logout" class="btn btn-default"><span class="fa fa-user"></span>Logout</a>
+{% endblock content %}
+
+{% block scripts %}
+    {% parent %}
+{% endblock scripts %}
