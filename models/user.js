@@ -41,7 +41,7 @@ userSchema.methods.generateHash = function(password) {
 
 // Check if the user entered a valid password
 userSchema.methods.validPassword = function(password) {
-	return bcrypt.compareSync(password, this.local.password);
+	return bcrypt.compareSync(password, this.auth.local.password);
 }
 
 module.exports = mongoose.model('User', userSchema);
