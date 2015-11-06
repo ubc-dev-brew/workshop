@@ -42,6 +42,15 @@ module.exports = function(express, app, middleware, passport) {
 	});
 	
 	// =====================================
+    // LOGOUT
+    // =====================================	
+	router.get('/feed', middleware.isLoggedIn, function(req,res) {
+		res.render('feed', {
+			user : req.user
+		});
+	});
+	
+	// =====================================
   // FACEBOOK ROUTES
   // =====================================
 	router.get('/auth/facebook', passport.authenticate('facebook', {scope : 'email'}));

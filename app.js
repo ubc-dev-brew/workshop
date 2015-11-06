@@ -91,6 +91,7 @@ conn.once('open', function callback () {
 
 // Mongoose models
 var User = require('./models/user.js');
+var Post = require('./models/post.js');
 
 // Connect routes to Express
 require('./routes/main.js')(express, app, middleware, passport);
