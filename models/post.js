@@ -5,7 +5,14 @@ var mongoose = require('mongoose'),
 var postSchema = new Schema({
 	imageUrl : String,
 	caption : String,
-	createdAt : {type : Date, default : Date.now()}
+	user : { 
+		type: Schema.Types.ObjectId, 
+		ref: 'User' 
+	},
+	createdAt : {
+		type : Date, 
+		default : Date.now()
+	}
 });
 
 module.exports = mongoose.model('Post', postSchema);

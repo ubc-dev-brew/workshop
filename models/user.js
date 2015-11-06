@@ -24,11 +24,15 @@ var userSchema  = new Schema({
 	},
 	profession : String,
 	bio : String,
-	posts : [{ 
-		imageUrl: String,
-		caption : String 
+	profilePictureUrl : String,
+	posts : [{
+		type: Schema.Types.ObjectId, 
+		ref: 'Post'
 	}],
-	profilePictureUrl : String
+	createdAt : {
+		type : Date, 
+		default : Date.now()
+	}
 });
 
 
