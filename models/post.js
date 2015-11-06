@@ -4,7 +4,8 @@ var mongoose = require('mongoose'),
 	
 var postSchema = new Schema({
 	imageUrl : String,
-	caption : String
+	caption : String,
+	createdAt : {type : Date, default : Date.now()}
 });
 
 module.exports = mongoose.model('Post', postSchema);

@@ -95,7 +95,7 @@ var Post = require('./models/post.js');
 
 // Connect routes to Express
 require('./routes/main.js')(express, app, middleware, passport);
-require('./routes/api.js')(express, app, middleware, multipart, cloudinary, User);
+require('./routes/api.js')(express, app, middleware, multipart, cloudinary, User, Post);
 
 app.listen(app.get('port'), function() {
 	console.log('Node app is running on port',

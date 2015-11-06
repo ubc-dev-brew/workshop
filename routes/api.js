@@ -1,9 +1,5 @@
-module.exports = function(express, app, multipart, cloudinary, User) {
+module.exports = function(express, app, middleware, multipart, cloudinary, User, Post) {
 	var router = express.Router();
-	
-	router.get('/profile-picture', function(req, res) {
-		res.render('upload');
-	});
 	
 	router.post('/profile', function(req, res) {
 		var form = new multipart.Form();
@@ -38,7 +34,7 @@ module.exports = function(express, app, multipart, cloudinary, User) {
 		
 		form.parse(req, function(err, fields, files) {
 			if(err) {
-				console.log("Error occurred while parsing a multi-part form.\nHTTP POST /profile\n" + err.stack)
+				console.log("Error occurred while parsing a multi-part form.\nHTTP POST /profile\n" + err.stack);
 			}
 			var newUser = new User(userModel);
 			newUser.save(function(err, result) {
@@ -46,10 +42,10 @@ module.exports = function(express, app, multipart, cloudinary, User) {
 					console.log("Error occurred while saving a new user to MongoDB: " + err.stack);
 				}
 				console.log("Added new user. " + JSON.stringify(result));
-			})
+			});
 		});
 		
-		res.render('index');
+		res.render('feed');
 	});
 	
 	router.post('/post', function(req, res) {
@@ -77,7 +73,9 @@ module.exports = function(express, app, multipart, cloudinary, User) {
 		});
 		
 		form.on('field', function(name, value) {
-			postModel[name] = value;
+			if(name === 'caption') {
+				postModel.caption = value; 
+			}
 		});
 		
 		form.parse(req, function(err, fields, files) {
@@ -89,11 +87,11 @@ module.exports = function(express, app, multipart, cloudinary, User) {
 				if(err) {
 					console.log("Error occurred while saving a new post to MongoDB: " + err.stack);
 				}
-				console.log("Added new user. " + JSON.stringify(result));
+				console.log("Added new post: " + JSON.stringify(result));
 			});
 			res.render('feed');
 		});
 	});
 	
 	app.use('/api', router);
-}
+};
