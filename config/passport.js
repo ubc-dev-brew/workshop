@@ -109,6 +109,7 @@ function(token, refreshToken, profile, done) {
 			} else {
 				// it is a new user
 				var newUser = new User();
+
 				newUser.auth.facebook.id = profile.id;
 				newUser.auth.facebook.token = token;
 				newUser.auth.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;

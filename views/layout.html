@@ -4,35 +4,34 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-    	
+		
 		<title>{% block title %}WorkShop, INC.{% endblock %}</title>
-    	
 		{% block head %}
 		<link rel="" type="image/x-icon" href="" />
 		{% if env == 'development' %}
-        <link rel="stylesheet" href="/css/dist/source.css" />
+		<link rel="stylesheet" href="/css/dist/source.css" />
 		<link rel="stylesheet" href="/vendor/css/src/bootstrap.css" />
 		{% else %}
-        <link rel="stylesheet" href="/css/dist/main.min.css" />
+		<link rel="stylesheet" href="/css/dist/main.min.css" />
 		<link rel="stylesheet" href="/vendor/css/dist/bootstrap.min.css" />
 		{% endif %}
-    	{% endblock head %}
+		{% endblock head %}
 	</head>
-	<body>
-    	{% block content %}
-    	<h1>Welcome to WorkShop</h1>
-    	{% endblock content %}
-    	
+    <body>
+        {% block content %}
+        {% include "./components/navbar.html" %}
+        {% endblock content %}
+        
     	{% block scripts %}
 		{% if env == 'development' %}
       	<script src="/js/dist/source.js"></script>
-		<script src="/vendor/js/dist/bootstrap.min.js"></script>
 		<script src="/vendor/js/dist/jquery-1.11.3.min.js"></script>
+		<script src="/vendor/js/dist/bootstrap.min.js"></script>
 		{% else %}
 		<script src="/js/dist/main.min.js"></script>
-		<script src="/vendor/js/src/bootstrap.js"></script>
 		<script src="/vendor/js/src/jquery-1.11.3.js"></script>
+		<script src="/vendor/js/src/bootstrap.js"></script>
 		{% endif %}
       	{% endblock scripts %}
-  	</body>
+    </body>
 </html>

@@ -1,5 +1,5 @@
 // This file contains the primary routes for the platform
-module.exports = function(express, app, passport) {
+module.exports = function(express, app, middleware, passport) {
 	var router = express.Router();
 	
 	// =====================================
@@ -35,8 +35,17 @@ module.exports = function(express, app, passport) {
 	// =====================================
   // DASHBOARD PAGE
   // =====================================	
-	router.get('/dashboard', isLoggedIn, function(req, res){
+	router.get('/dashboard', middleware.isLoggedIn, function(req, res){
 		res.render('dashboard', {
+			user : req.user
+		});
+	});
+	
+	// =====================================
+    // LOGOUT
+    // =====================================	
+	router.get('/feed', middleware.isLoggedIn, function(req,res) {
+		res.render('feed', {
 			user : req.user
 		});
 	});
@@ -60,15 +69,7 @@ module.exports = function(express, app, passport) {
 		req.logout();
 		res.redirect('/');
 	});
-	
-	// Route middlewares to check if a user is logged in
-	function isLoggedIn(req, res, next) {
-		if(req.isAuthenticated()) {
-			return next();
-		}		
-		res.redirect('/');
-	}
-	
+
 	// mount the router on the app - https://scotch.io/tutorials/learn-to-use-the-new-router-in-expressjs-4
 	// All routes relative to '/'
 	app.use('/', router);
