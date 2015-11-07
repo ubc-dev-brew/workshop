@@ -3,8 +3,8 @@ module.exports = function(express, app, middleware, passport) {
 	var router = express.Router();
 	
 	// =====================================
-  // HOME / LOG-IN PAGE
-  // =====================================
+	// HOME / LOG-IN PAGE
+  	// =====================================
 	router.get('/', function(req, res){
 		res.render('index', {
 			errorMessage: req.flash('loginMessage')
@@ -18,8 +18,8 @@ module.exports = function(express, app, middleware, passport) {
 	}));
 	
 	// =====================================
-  // SIGN-UP PAGE
-  // =====================================
+  	// SIGN-UP PAGE
+  	// =====================================
 	router.get('/signup', function(req, res){
 		res.render('signup', {
 			errorMessage: req.flash('signupMessage')
@@ -33,8 +33,8 @@ module.exports = function(express, app, middleware, passport) {
 	}));
 	
 	// =====================================
-  // DASHBOARD PAGE
-  // =====================================	
+  	// DASHBOARD PAGE
+	// =====================================	
 	router.get('/dashboard', middleware.isLoggedIn, function(req, res){
 		res.render('dashboard', {
 			user : req.user
@@ -42,7 +42,7 @@ module.exports = function(express, app, middleware, passport) {
 	});
 	
 	// =====================================
-    // LOGOUT
+    // FEED
     // =====================================	
 	router.get('/feed', middleware.isLoggedIn, function(req,res) {
 		res.render('feed', {
@@ -51,8 +51,8 @@ module.exports = function(express, app, middleware, passport) {
 	});
 	
 	// =====================================
-  // FACEBOOK ROUTES
-  // =====================================
+  	// FACEBOOK ROUTES
+  	// =====================================
 	router.get('/auth/facebook', passport.authenticate('facebook', {scope : 'email'}));
 	
 	// Handle callback after authenticaiton
