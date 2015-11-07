@@ -114,7 +114,7 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
 		});
 		
 		form.on('close', function() {
-			res.render('feed');
+			res.redirect('/feed');
 		});
 		
 		form.parse(req);

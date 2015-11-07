@@ -1,5 +1,5 @@
 // This file contains the primary routes for the platform
-module.exports = function(express, app, middleware, passport) {
+module.exports = function(express, app, middleware, passport, Post) {
 	var router = express.Router();
 	
 	// =====================================
@@ -45,8 +45,19 @@ module.exports = function(express, app, middleware, passport) {
     // FEED
     // =====================================	
 	router.get('/feed', middleware.isLoggedIn, function(req,res) {
-		res.render('feed', {
-			user : req.user
+		var query = Post.where().sort({ 'createdAt' : -1 }).limit(10);
+		query.find(function(err, docs) {
+			if(err) {
+				console.log("An error occurred while searching for recent posts: " + err.stack);
+			}
+			for(var index in docs) {
+				console.log('****' + index + '****');
+				console.dir(docs[index]);
+			}
+			res.render('feed', {
+				user : req.user,
+				posts : docs
+			});
 		});
 	});
 	

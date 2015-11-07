@@ -19,6 +19,11 @@
 				<input type="submit" value="submit">
 			</form>
 			<!-- FEED -->
+			{% for post in posts %}
+			<div class="post" style="background-image: url('{{ post.imageUrl }}');">
+			</div>
+			<p>{{ post.caption }}</p>
+			{% endfor %}
 		</div>
 		<div class="col-md-3"></div>
 	</div><!-- .row -->
