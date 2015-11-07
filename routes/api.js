@@ -54,7 +54,6 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
     
     router.post('/user/update', middleware.isLoggedIn, function(req, res) {
         var form = new multipart.Form();
-        var profilePic;
         var query;
         if(req.user._doc.auth.local) {
             query = User.where({ 'auth.local.email' : req.user._doc.auth.local.email });
@@ -73,17 +72,13 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
             }
             if(part.filename) {
                 var stream = cloudinary.uploader.upload_stream(function(result) {
-                    profilePic = result.url;
+                    User.findOneAndUpdate(query, { $set: { profilePictureUrl : result.url }}, {upsert: true}, function(err, result) {
+                      if (err) {
+                        console.log("Error occured while updating user profile.");
+                      }
+                      console.log("Updated user profile: " + JSON.stringify(result));
+                    });
                 });
-                console.log(profilePic);
-                User.findOneAndUpdate(query, { profilePictureUrl : profilePic }, {upsert: true}, function(err, result) {
-                  if (err) {
-                    console.log("Error occured while updating user profile.");
-                  }
-                  result.save();
-                  console.log("Updated user profile: " + JSON.stringify(result));
-                });
-                
                 part.pipe(stream);
                 part.resume();
             }
@@ -96,7 +91,7 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
         form.on('field', function(name, value) {
             if(name === 'profession') {
                 if(value) {
-                    User.findOneAndUpdate(query, { $set: { profession : value }}, function(err, result) {
+                    User.findOneAndUpdate(query, { $set: { profession : value }}, {upsert: true}, function(err, result) {
                       if (err) {
                         console.log("Error occured while updating user profile.");
                       }
@@ -106,7 +101,7 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
             }
             if(name === 'bio') {
                 if(value) {
-                    User.findOneAndUpdate(query, { $set: { bio : value }}, function(err, result) {
+                    User.findOneAndUpdate(query, { $set: { bio : value }}, {upsert: true}, function(err, result) {
                       if (err) {
                         console.log("Error occured while updating user profile.");
                       }
