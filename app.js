@@ -71,6 +71,8 @@ app.use(passport.initialize());
 app.use(passport.session()); // Persisting log-in sessions
 app.use(flash()); // For flash messages stored in session
 
+var middleware = require('./routes/middleware.js');
+
 // Set a port to listen to for the server
 app.set('port', (process.env.PORT || 5000));
 
@@ -89,10 +91,11 @@ conn.once('open', function callback () {
 
 // Mongoose models
 var User = require('./models/user.js');
+var Post = require('./models/post.js');
 
 // Connect routes to Express
-require('./routes/main.js')(express, app, passport);
-require('./routes/api.js')(express, app, multipart, cloudinary, User);
+require('./routes/main.js')(express, app, middleware, passport, Post);
+require('./routes/api.js')(express, app, middleware, multipart, cloudinary, User, Post);
 
 app.listen(app.get('port'), function() {
 	console.log('Node app is running on port',

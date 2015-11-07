@@ -15,13 +15,13 @@
     <h1>{{user.auth.facebook.id}}</h1>
 {% endif %}
 {% if user.auth.facebook.name %}
-    <h1{{user.auth.facebook.name}}</h1>
+    <h1>{{user.auth.facebook.name}}</h1>
 {% endif %}
 {% if user.auth.facebook.email %}
     <h1>{{user.auth.facebook.email}}</h1>
 {% endif %}
-        
-    <a href="/logout" class="btn btn-default"><span class="fa fa-user"></span>Logout</a>
+<a href="/logout" class="btn btn-default"><span class="fa fa-user"></span>Logout</a>
+<a href="/feed" class="btn btn-default">Feed</a>
 {% endblock content %}
 
 {% block scripts %}
