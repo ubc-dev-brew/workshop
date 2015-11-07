@@ -51,20 +51,17 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
 		
 		res.render('feed');
 	});
-	
-    /*route.post('/user/create', function(req, res) {
-        var form = new multipart.Form();
-        var postModel = {};
-        
-        form.on('error', function(err) {
-			console.log('Error occurred while uploading a post: ' + err.stack);
-		});
-        
-    }*/
     
     router.post('/user/update', middleware.isLoggedIn, function(req, res) {
         var form = new multipart.Form();
-        var userModel = {};
+        var profilePic;
+        var query;
+        if(req.user._doc.auth.local) {
+            query = User.where({ 'auth.local.email' : req.user._doc.auth.local.email });
+        }
+        else {
+            query = User.where({ 'auth.facebook.id' : req.user._doc.auth.facebook.id });
+        }
         
         form.on('error', function(err) {
 			console.log('Error occurred while updating user profile: ' + err.stack);
@@ -76,25 +73,21 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
             }
             if(part.filename) {
                 var stream = cloudinary.uploader.upload_stream(function(result) {
-                    userModel.profilePictureUrl = result.url;
+                    profilePic = result.url;
                 });
-                var query;
-                if(req.user._doc.auth.local) {
-                    query = User.where({ 'auth.local.email' : req.user._doc.auth.local.email });
-                }
-                else {
-                    query = User.where({ 'auth.facebook.id' : req.user._doc.auth.facebook.id });
-                }
-                User.findOneAndUpdate(query, userModel, function(err, result) {
+                console.log(profilePic);
+                User.findOneAndUpdate(query, { profilePictureUrl : profilePic }, {upsert: true}, function(err, result) {
                   if (err) {
                     console.log("Error occured while updating user profile.");
                   }
+                  result.save();
                   console.log("Updated user profile: " + JSON.stringify(result));
                 });
                 
                 part.pipe(stream);
                 part.resume();
             }
+            
             part.on('error', function(err) {
 				console.log("Error occurred while stream a post image part: " + err.stack);
 			});
@@ -102,16 +95,30 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
         
         form.on('field', function(name, value) {
             if(name === 'profession') {
-                userModel.profession = value;
+                if(value) {
+                    User.findOneAndUpdate(query, { $set: { profession : value }}, function(err, result) {
+                      if (err) {
+                        console.log("Error occured while updating user profile.");
+                      }
+                      console.log("Updated user profile: " + JSON.stringify(result));
+                    });
+                }
             }
             if(name === 'bio') {
-                userModel.bio = value;
+                if(value) {
+                    User.findOneAndUpdate(query, { $set: { bio : value }}, function(err, result) {
+                      if (err) {
+                        console.log("Error occured while updating user profile.");
+                      }
+                      console.log("Updated user profile: " + JSON.stringify(result));
+                    });
+                }
             }
         });
         
         form.parse(req);
         form.on('close', function() {
-			res.render('dashboard');
+			res.redirect('/dashboard');
 		});
     });
     
