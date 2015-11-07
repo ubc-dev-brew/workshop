@@ -1,0 +1,28 @@
+@import 'colors.scss';
+
+.post-feed-container {
+  .post-container {
+    padding: 1em 0;
+    
+    &:first-child {
+      margin-top: 2em;
+    }
+  
+    &:last-child {
+      margin-bottom: 2em;
+    }
+
+    img.post {
+      width: 100%;
+      height: auto;
+    }
+
+    h1.post-caption {
+      font-size: 1em;
+      padding: 0.5em 0;
+      margin: 0;
+      color: $ws-grey;
+
+    }
+  }
+}
