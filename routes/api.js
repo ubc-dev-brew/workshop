@@ -113,6 +113,7 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
         
         form.parse(req);
         form.on('close', function() {
+            req.flash("successMessage", "Refresh page to see your profile picture!");
 			res.redirect('/dashboard');
 		});
     });
