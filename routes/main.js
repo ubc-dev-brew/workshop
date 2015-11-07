@@ -37,7 +37,8 @@ module.exports = function(express, app, middleware, passport, Post) {
 	// =====================================	
 	router.get('/dashboard', middleware.isLoggedIn, function(req, res){
 		res.render('dashboard', {
-			user : req.user
+			user : req.user,
+            successMessage : req.flash('successMessage') || ""
 		});
 	});
 	
