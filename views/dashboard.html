@@ -20,6 +20,19 @@
 {% if user.auth.facebook.email %}
     <h1>{{user.auth.facebook.email}}</h1>
 {% endif %}
+<div class="container">
+	<div class="row">
+        <form class="form-inline" role="form" action="/api/user/update" method="post" enctype="multipart/form-data">
+            <!-- UPLOAD PROFILE PICTURE -->
+            <input type="file" name="file"><br>
+            <!-- ADD PROFESSION -->
+            Profession: <input type="text" placeholder="Profession" class="form-control" name="profession">
+            <!-- ADD BIO -->
+            Biography: <input type="text" placeholder="Biography" class="form-control" name="bio">
+            <input type="submit" value="Update">
+        </form>
+	</div><!-- .row -->
+</div><!-- .container -->
 <a href="/logout" class="btn btn-default"><span class="fa fa-user"></span>Logout</a>
 <a href="/feed" class="btn btn-default">Feed</a>
 {% endblock content %}
