@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block title %}{% parent %} - Feed{% endblock %}
+
+{% block head %}
+	{% parent %}
+{% endblock %}
+
+{% block content %}
+{% parent %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-xs-12 col-md-6">
+			<!-- UPLOAD FORM -->
+			<form class="form-inline" role="form" action="/api/post" method="post" enctype="multipart/form-data">
+				<input type="file" name="file">
+				<input type="text" placeholder="Caption" class="form-control" name="caption">
+			</form>
+			<!-- FEED -->
+		</div>
+		<div class="col-md-3"></div>
+	</div><!-- .row -->
+</div><!-- .container -->
+{% endblock %}
+
+{% block scripts %}
+	{% parent %}
+{% endblock %}
