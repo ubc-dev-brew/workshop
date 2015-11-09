@@ -1,5 +1,18 @@
 @import 'colors.scss';
 
+
+.input-file-container {
+  display: inline-block;
+}
+
+#inputCaption {
+  display: none;
+}
+
+.submit-to-feed {
+  float: right;
+}
+
 .post-feed-container {
   .post-container {
     padding: 1em 0;
@@ -25,3 +38,4 @@
     }
   }
 }
+

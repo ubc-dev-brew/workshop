@@ -24,14 +24,14 @@
         
     	{% block scripts %}
 		{% if env == 'development' %}
-      	<script src="/js/dist/source.js"></script>
-        <script src="/js/src/source.js"></script>
 		<script src="/vendor/js/dist/jquery-1.11.3.min.js"></script>
 		<script src="/vendor/js/dist/bootstrap.min.js"></script>
+		<script src="/js/dist/source.js"></script>
+        <script src="/js/src/source.js"></script>
 		{% else %}
-		<script src="/js/dist/main.min.js"></script>
 		<script src="/vendor/js/src/jquery-1.11.3.js"></script>
 		<script src="/vendor/js/src/bootstrap.js"></script>
+		<script src="/js/dist/main.min.js"></script>
 		{% endif %}
       	{% endblock scripts %}
     </body>

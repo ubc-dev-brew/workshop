@@ -1,0 +1,23 @@
+.input-file-container {
+  display: inline-block; }
+
+#inputCaption {
+  display: none; }
+
+.submit-to-feed {
+  float: right; }
+
+.post-feed-container .post-container {
+  padding: 1em 0; }
+  .post-feed-container .post-container:first-child {
+    margin-top: 2em; }
+  .post-feed-container .post-container:last-child {
+    margin-bottom: 2em; }
+  .post-feed-container .post-container img.post {
+    width: 100%;
+    height: auto; }
+  .post-feed-container .post-container h1.post-caption {
+    font-size: 1em;
+    padding: 0.5em 0;
+    margin: 0;
+    color: #837c73; }
