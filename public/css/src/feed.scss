@@ -16,6 +16,7 @@
 .post-feed-container {
   .post-container {
     padding: 1em 0;
+    margin-bottom: 5em;
     
     &:first-child {
       margin-top: 2em;
@@ -32,7 +33,7 @@
 
     h1.post-caption {
       font-size: 1em;
-      padding: 0.5em 0;
+      padding: 1em;
       margin: 0;
       color: $ws-grey;
     }
