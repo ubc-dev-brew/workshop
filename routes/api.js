@@ -55,11 +55,14 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
     router.post('/user/update', middleware.isLoggedIn, function(req, res) {
         var form = new multipart.Form();
         var query;
+        var email;
         if(req.user._doc.auth.local) {
             query = User.where({ 'auth.local.email' : req.user._doc.auth.local.email });
+            email = req.user._doc.auth.local.email;
         }
         else {
             query = User.where({ 'auth.facebook.id' : req.user._doc.auth.facebook.id });
+            email = req.user._doc.auth.facebook.email;
         }
         
         form.on('error', function(err) {
@@ -78,7 +81,7 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
                       }
                       console.log("Updated user profile: " + JSON.stringify(result));
                     });
-                });
+                }, {folder : "users/" + email});
                 part.pipe(stream);
                 part.resume();
             }
@@ -125,6 +128,16 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
 	router.post('/post', function(req, res) {
 		var form = new multipart.Form();
 		var postModel = {};
+        var query;
+        var email;
+        if(req.user._doc.auth.local) {
+            query = User.where({ 'auth.local.email' : req.user._doc.auth.local.email });
+            email = req.user._doc.auth.local.email;
+        }
+        else {
+            query = User.where({ 'auth.facebook.id' : req.user._doc.auth.facebook.id });
+            email = req.user._doc.auth.facebook.email;
+        }
 				
 		form.on('error', function(err) {
 			console.log('Error occurred while uploading a post: ' + err.stack);
@@ -138,13 +151,6 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
 			if(part.filename) {
 				var stream = cloudinary.uploader.upload_stream(function(result) {
 					postModel.imageUrl = result.url;
-					var query;
-					if(req.user._doc.auth.local) {
-						query = User.where({ 'auth.local.email' : req.user._doc.auth.local.email });
-					}
-					else {
-						query = User.where({ 'auth.facebook.id' : req.user._doc.auth.facebook.id });
-					}
 					query.findOne(function(err, user) {
 						if(err) {
 							console.log("An error occurred while retrieving a user doc: " + err.stack);
@@ -164,7 +170,7 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
 							});
 						}
 					});
-				});
+				}, {folder : "users/" + email});
 				part.pipe(stream);
 				part.resume();
 			}
