@@ -4,6 +4,7 @@
 
 {% block head %}
 	{% parent %}
+	<link rel="stylesheet" href="/css/dist/feed.css" />
 {% endblock %}
 
 {% block content %}
@@ -29,19 +30,19 @@
 			</form>
 		</div>
 	</div>
+	{% for post in posts %}
 	<div class="row">
-		<div class="col-xs-12 col-md-8 col-md-offset-2">
+		<div class="col-xs-12 col-md-10 col-md-offset-1">
 			<!-- FEED -->
-			<div class="post-feed-container">
-				{% for post in posts %}
+			<div class="post-feed-container">				
 				<div class="post-container">
 					<img src="{{ post.imageUrl }}" class="post img-rounded"></img>
 					<h1 class="post-caption text-center">{{ post.caption }}</h1>
-				</div>
-				{% endfor %}
+				</div>				
 			</div>
 		</div>
 	</div><!-- .row -->
+	{% endfor %}
 </div><!-- .container -->
 {% endblock %}
 

@@ -7,6 +7,7 @@
 
 #inputCaption {
   display: none;
+  
 }
 
 .submit-to-feed {
@@ -14,10 +15,12 @@
 }
 
 .post-feed-container {
-  .post-container {
-    padding: 1em 0;
-    margin-bottom: 5em;
-    
+  background: #fff;
+  padding: 1em 2em;
+  margin-bottom: 5em;
+  border-radius: 10px;
+  
+  .post-container {    
     &:first-child {
       margin-top: 2em;
     }
