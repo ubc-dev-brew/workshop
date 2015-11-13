@@ -52,6 +52,9 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
 		res.render('feed');
 	});
     
+    // ================================================
+    // UPDATE USER INFORMATION
+	// ================================================
     router.post('/user/update', middleware.isLoggedIn, function(req, res) {
         var form = new multipart.Form();
         var query;
@@ -81,7 +84,7 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
                       }
                       console.log("Updated user profile: " + JSON.stringify(result));
                     });
-                }, {folder : "users/" + email});
+                });
                 part.pipe(stream);
                 part.resume();
             }
@@ -170,7 +173,7 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
 							});
 						}
 					});
-				}, {folder : "users/" + email});
+				});
 				part.pipe(stream);
 				part.resume();
 			}

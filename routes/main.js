@@ -1,5 +1,5 @@
 // This file contains the primary routes for the platform
-module.exports = function(express, app, middleware, passport, Post) {
+module.exports = function(express, app, middleware, passport, mongoose, User, Post) {
 	var router = express.Router();
 	
 	// =====================================
@@ -42,6 +42,21 @@ module.exports = function(express, app, middleware, passport, Post) {
 		});
 	});
 	
+    // =====================================
+  	// USER PROFILE PAGE
+	// =====================================	
+    router.get('/users/:user', function(req, res) {
+        var query = User.findOne({ _id : mongoose.Types.ObjectId(req.params.user) }, function(err, result){
+            if(err) {
+				console.log("An error occurred while retrieving this user: " + err.stack);
+			}
+            res.render('profile', {
+                profileOwner : result,
+                posts : result.posts
+            });
+        });
+    });
+     
 	// =====================================
     // FEED
     // =====================================	
