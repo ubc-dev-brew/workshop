@@ -22,4 +22,7 @@ $('.submit-to-feed').on("click", function(event) {
     
     // Submit the form
     $('.feed-form').submit();
+    
+    // Show success message.
+    $('.status_messages').show().delay(6000).fadeOut(1000);
 });

@@ -11,13 +11,7 @@
 {% parent %}
 <div class="container">
 	<div class="row">
-		<div class="col-xs-12 col-md-6 col-md-offset-3">
-			<!-- UPLOAD FORM -->
-			<!--<form action="/api/post" method="post" enctype="multipart/form-data">
-				Upload Image: <input type="file" name="post" accept="image/*">
-				<input type="text" name="caption">
-				<input type="submit" value="submit">
-			</form>-->			
+		<div class="col-xs-12 col-md-6 col-md-offset-3">		
 			<form action="/api/post" method="post" enctype="multipart/form-data" class="form-group feed-form well">
 				<div class="form-group">
 					<textarea class="form-control" rows="3" placeholder="Enter a description"></textarea>
@@ -27,7 +21,11 @@
 					<input type="file" id="inputFile" name="post" accept="image/*">
 				</div>
 				<button type="submit" class="btn btn-success submit-to-feed">Submit</button>
+				<div class="status_messages">
+					<p class="bg-success">Uploading... Your post will appear shortly.</p>
+				</div>
 			</form>
+			
 		</div>
 	</div>
 	{% for post in posts %}

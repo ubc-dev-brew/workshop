@@ -24,3 +24,6 @@
     padding: 1em;
     margin: 0;
     color: #837c73; }
+
+.status_messages {
+  display: none; }
