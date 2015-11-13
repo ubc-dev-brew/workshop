@@ -51,13 +51,96 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
 		
 		res.render('feed');
 	});
-	
+    
+    // ================================================
+    // UPDATE USER INFORMATION
+	// ================================================
+    router.post('/user/update', middleware.isLoggedIn, function(req, res) {
+        var form = new multipart.Form();
+        var query;
+        var email;
+        if(req.user._doc.auth.local) {
+            query = User.where({ 'auth.local.email' : req.user._doc.auth.local.email });
+            email = req.user._doc.auth.local.email;
+        }
+        else {
+            query = User.where({ 'auth.facebook.id' : req.user._doc.auth.facebook.id });
+            email = req.user._doc.auth.facebook.email;
+        }
+        
+        form.on('error', function(err) {
+			console.log('Error occurred while updating user profile: ' + err.stack);
+		});
+        
+        form.on('part', function(part) {
+            if(!part.filename) {
+                part.resume();
+            }
+            if(part.filename) {
+                var stream = cloudinary.uploader.upload_stream(function(result) {
+                    User.findOneAndUpdate(query, { $set: { profilePictureUrl : result.url }}, {upsert: true}, function(err, result) {
+                      if (err) {
+                        console.log("Error occured while updating user profile.");
+                      }
+                      console.log("Updated user profile: " + JSON.stringify(result));
+                    });
+                });
+                part.pipe(stream);
+                part.resume();
+            }
+            
+            part.on('error', function(err) {
+				console.log("Error occurred while stream a post image part: " + err.stack);
+			});
+        });
+        
+        form.on('field', function(name, value) {
+            if(name === 'profession') {
+                if(value) {
+                    User.findOneAndUpdate(query, { $set: { profession : value }}, {upsert: true}, function(err, result) {
+                      if (err) {
+                        console.log("Error occured while updating user profile.");
+                      }
+                      console.log("Updated user profile: " + JSON.stringify(result));
+                    });
+                }
+            }
+            if(name === 'bio') {
+                if(value) {
+                    User.findOneAndUpdate(query, { $set: { bio : value }}, {upsert: true}, function(err, result) {
+                      if (err) {
+                        console.log("Error occured while updating user profile.");
+                      }
+                      console.log("Updated user profile: " + JSON.stringify(result));
+                    });
+                }
+            }
+        });
+        
+        form.parse(req);
+        form.on('close', function() {
+            req.flash("successMessage", "Refresh page to see your profile picture!");
+			res.redirect('/dashboard');
+		});
+    });
+    
 	// ================================================
     // CREATE NEW POST
 	// ================================================
+
 	router.post('/post', function(req, res) {
 		var form = new multipart.Form();
 		var postModel = {};
+        var query;
+        var email;
+        if(req.user._doc.auth.local) {
+            query = User.where({ 'auth.local.email' : req.user._doc.auth.local.email });
+            email = req.user._doc.auth.local.email;
+        }
+        else {
+            query = User.where({ 'auth.facebook.id' : req.user._doc.auth.facebook.id });
+            email = req.user._doc.auth.facebook.email;
+        }
 				
 		form.on('error', function(err) {
 			console.log('Error occurred while uploading a post: ' + err.stack);
@@ -71,13 +154,6 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
 			if(part.filename) {
 				var stream = cloudinary.uploader.upload_stream(function(result) {
 					postModel.imageUrl = result.url;
-					var query;
-					if(req.user._doc.auth.local) {
-						query = User.where({ 'auth.local.email' : req.user._doc.auth.local.email });
-					}
-					else {
-						query = User.where({ 'auth.facebook.id' : req.user._doc.auth.facebook.id });
-					}
 					query.findOne(function(err, user) {
 						if(err) {
 							console.log("An error occurred while retrieving a user doc: " + err.stack);
