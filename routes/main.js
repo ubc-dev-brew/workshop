@@ -46,12 +46,10 @@ module.exports = function(express, app, middleware, passport, User, Post) {
   	// USER PROFILE PAGE
 	// =====================================	
     router.get('/users/:userId', function(req, res) {
-        var query = User.findById(req.params.userId, function(err, dataresult){
+        User.findById(req.params.userId, function(err, dataresult){
             if(err) {
 				console.log("An error occurred while retrieving this user: " + err.message);
 			}
-			//console.dir(result);
-			debugger;
             res.render('profile', {
                 profileOwner : dataresult,
                 posts : dataresult.posts
