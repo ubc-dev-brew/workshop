@@ -94,7 +94,7 @@ var User = require('./models/user.js');
 var Post = require('./models/post.js');
 
 // Connect routes to Express
-require('./routes/main.js')(express, app, middleware, passport, mongoose, User, Post);
+require('./routes/main.js')(express, app, middleware, passport, User, Post);
 require('./routes/api.js')(express, app, middleware, multipart, cloudinary, User, Post);
 
 app.listen(app.get('port'), function() {

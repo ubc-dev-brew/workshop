@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 
-{% block title %}{{profileOwner.firstName}}'s Profile{% endblock %}
+{% block title %}{{profileOwner.name.firstName}}'s Profile{% endblock %}
 
 {% block head %}
     {% parent %}
@@ -14,7 +14,7 @@
 			<!-- Profile -->
 			<div class="well profile">
 				<img src="profileOwner.profilePictureUrl" class="profile img-rounded" />
-				<h1 class="profile">Welcome to {{profileOwner.firstName}}'s Workshop</h1>
+				<h1 class="profile">Welcome to {{profileOwner.name.firstName}}'s Workshop</h1>
 				<h2 class="profile">Profession:</h2>
 				<br />
 				<p class="profile">{{profileOwner.profession}}</p>
