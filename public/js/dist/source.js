@@ -7,6 +7,7 @@ function showEditForm() {
     var userSummary = document.getElementById('userSummary').style.display= "none";
 };
 
+
 function showUserSummary() {
     var editForm = document.getElementById('editForm').style.display= "none";;
     var userSummary = document.getElementById('userSummary').style.display= "block";
@@ -27,5 +28,4 @@ $('.submit-to-feed').on("click", function(event) {
     // Show success message.
     $('.status_messages').show().delay(6000).fadeOut(1000);
 });
-
 },{}]},{},[1]);
