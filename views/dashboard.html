@@ -8,20 +8,49 @@
 
 {% block content %}
 {% parent %}
-{% if user.auth.local.email %}
-    <h1>{{user.auth.local.email}}</h1>
-{% endif %}
-{% if user.auth.facebook.id %}
-    <h1>{{user.auth.facebook.id}}</h1>
-{% endif %}
-{% if user.auth.facebook.name %}
-    <h1{{user.auth.facebook.name}}</h1>
-{% endif %}
-{% if user.auth.facebook.email %}
-    <h1>{{user.auth.facebook.email}}</h1>
-{% endif %}
-        
-    <a href="/logout" class="btn btn-default"><span class="fa fa-user"></span>Logout</a>
+
+<div class="container">
+    <img src="{{user.profilePictureUrl}}" class="img-rounded" width=100 height=100></img>
+    <p>{{successMessage}}</p>
+</div>
+<!-- SUMMARY OF USER INFORMATION -->
+<div class="container" style="display: block" id="userSummary">
+    {% if user.auth.local.name.firstName %}}
+        <h3>Welcome to Workshop, {{user.auth.local.name.firstName}}!</h3>
+    {% endif %}
+    {% if user.auth.local.email %}
+        <h3>Email: {{user.auth.local.email}}</h3>
+    {% endif %}
+    {% if user.auth.facebook.id %}
+        <h3>Facebook Id: {{user.auth.facebook.id}}</h3>
+    {% endif %}
+    {% if user.auth.facebook.name %}
+        <h3>Facebook Name: {{user.auth.facebook.name}}</h3>
+    {% endif %}
+    {% if user.auth.facebook.email %}
+        <h3>Facebook Email: {{user.auth.facebook.email}}</h3>
+    {% endif %}
+    <h3>Profession: {{user.profession}}</h3>
+    <h3>Biography: {{user.bio}}</h3>
+    <button type="button" class="btn btn-default" id="editButton" onclick="showEditForm()">Edit</button><br>
+</div><br>
+<!-- HIDDEN EDIT FORM -->
+<div class="container" style="display: none" id="editForm">
+	<div class="row">
+        <form class="form-inline" role="form" action="/api/user/update" method="post" enctype="multipart/form-data">
+            <!-- UPLOAD PROFILE PICTURE -->
+            <input type="file" name="file"><br>
+            <!-- ADD PROFESSION -->
+            Profession: <input type="text" placeholder="{{user.profession}}" class="form-control" name="profession">
+            <!-- ADD BIO -->
+            Biography: <input type="text" placeholder="{{user.bio}}" class="form-control" name="bio">
+            <input type="submit" value="Update">
+        </form>
+        <button type="button" class="btn btn-default" id="dashboardBackButton" onclick="showUserSummary()">Back</button>
+	</div><!-- .row -->
+</div><br><!-- .container -->
+<a href="/logout" class="btn btn-default"><span class="fa fa-user"></span>Logout</a>
+<a href="/feed" class="btn btn-default">Feed</a>
 {% endblock content %}
 
 {% block scripts %}

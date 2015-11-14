@@ -58,7 +58,7 @@ module.exports = function(passport, config) {
 	}));
 	
 	// ================================================
-    // LOCAL LOGIN
+	// LOCAL LOGIN
 	// ================================================
 	passport.use('local-login', new LocalStrategy({
 		usernameField : 'email',
@@ -83,45 +83,44 @@ module.exports = function(passport, config) {
 		});
 	}));
 	
+	// =====================================
+	// Facebook Strategy
+	//======================================
+	passport.use(new FacebookStrategy({
+		// Get app details from config files.
+		clientID : config.facebookAuth.clientID,
+		clientSecret : config.facebookAuth.clientSecret,
+		callbackURL : config.facebookAuth.callbackURL	
+	},
 	
-	
-// =====================================
-// Facebook Strategy
-//======================================
-passport.use(new FacebookStrategy({
-	// Get app details from config files.
-	clientID : config.facebookAuth.clientID,
-	clientSecret : config.facebookAuth.clientSecret,
-	callbackURL : config.facebookAuth.callbackURL	
-},
-
-function(token, refreshToken, profile, done) {
-	
-	process.nextTick(function(){
+	function(token, refreshToken, profile, done) {
 		
-		// Find an existing user in DB
-		User.findOne({'auth.facebook.id' : profile.id}, function(err, user){
-			if(err) return done(err);
+		process.nextTick(function(){
 			
-			// If a user is found
-			if(user){
-				return done(null, user);
-			} else {
-				// it is a new user
-				var newUser = new User();
-				newUser.auth.facebook.id = profile.id;
-				newUser.auth.facebook.token = token;
-				newUser.auth.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
-				newUser.auth.facebook.email = profile.emails ? profile.emails[0].value : '';
+			// Find an existing user in DB
+			User.findOne({'auth.facebook.id' : profile.id}, function(err, user){
+				if(err) return done(err);
 				
-				newUser.save(function(err){
-					if(err) console.log(err);
+				// If a user is found
+				if(user){
+					return done(null, user);
+				} else {
+					// it is a new user
+					var newUser = new User();
+	
+					newUser.auth.facebook.id = profile.id;
+					newUser.auth.facebook.token = token;
+					newUser.auth.facebook.name = profile.name.firstName + ' ' + profile.name.lastName;
+					newUser.auth.facebook.email = profile.emails ? profile.emails[0].value : '';
 					
-					return done(null, newUser);
-				});
-			}
-		});
-	});	
-}));
+					newUser.save(function(err){
+						if(err) console.log(err);
+						
+						return done(null, newUser);
+					});
+				}
+			});
+		});	
+	}));
 
 };
