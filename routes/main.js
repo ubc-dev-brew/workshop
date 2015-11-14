@@ -1,5 +1,5 @@
 // This file contains the primary routes for the platform
-module.exports = function(express, app, middleware, passport, Post) {
+module.exports = function(express, app, middleware, passport, User, Post) {
 	var router = express.Router();
 	
 	// =====================================
@@ -42,6 +42,21 @@ module.exports = function(express, app, middleware, passport, Post) {
 		});
 	});
 	
+    // =====================================
+  	// USER PROFILE PAGE
+	// =====================================	
+    router.get('/users/:userId', function(req, res) {
+        User.findById(req.params.userId, function(err, dataresult){
+            if(err) {
+				console.log("An error occurred while retrieving this user: " + err.message);
+			}
+            res.render('profile', {
+                profileOwner : dataresult,
+                posts : dataresult.posts
+            });
+        });
+    });
+     
 	// =====================================
     // FEED
     // =====================================	
