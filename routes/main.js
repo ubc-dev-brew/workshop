@@ -51,10 +51,6 @@ module.exports = function(express, app, middleware, passport, Post) {
 			if(err) {
 				console.log("An error occurred while searching for recent posts: " + err.stack);
 			}
-			for(var index in docs) {
-				console.log('****' + index + '****');
-				console.dir(docs[index]);
-			}
 			res.render('feed', {
 				user : req.user,
 				posts : docs
