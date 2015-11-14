@@ -27,4 +27,5 @@ $('.submit-to-feed').on("click", function(event) {
     // Show success message.
     $('.status_messages').show().delay(6000).fadeOut(1000);
 });
+
 },{}]},{},[1]);
