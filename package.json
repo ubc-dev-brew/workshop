@@ -5,7 +5,8 @@
   "repository": "https://github.com/ubc-dev-brew/workshop.git",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "gulp js && gulp sass"
   },
   "author": "DevBrew",
   "license": "ISC",
