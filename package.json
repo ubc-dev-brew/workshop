@@ -6,6 +6,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "gulp js && gulp sass"
   },
   "author": "DevBrew",
   "license": "ISC",
@@ -25,9 +26,7 @@
     "passport": "^0.3.0",
     "passport-facebook": "^2.0.0",
     "passport-local": "^1.0.0",
-    "swig": "^1.4.2"
-  },
-  "devDependencies": {
+    "swig": "^1.4.2",
     "browserify": "^11.2.0",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
