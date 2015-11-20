@@ -13,7 +13,8 @@ module.exports = function(express, app, middleware, passport, User, Post) {
 			}
 			res.render('index', {
 				errorMessage: req.flash('loginMessage'),
-				posts : docs
+				posts : docs,
+				isUserLoggedOut: !req.isAuthenticated()
 			});
 		});
 		
@@ -46,7 +47,8 @@ module.exports = function(express, app, middleware, passport, User, Post) {
 	router.get('/dashboard', middleware.isLoggedIn, function(req, res){
 		res.render('dashboard', {
 			user : req.user,
-            successMessage : req.flash('successMessage') || ""
+            successMessage : req.flash('successMessage') || "",
+			isUserLoggedIn: req.isAuthenticated()
 		});
 	});
 	
@@ -60,7 +62,8 @@ module.exports = function(express, app, middleware, passport, User, Post) {
 			}
             res.render('profile', {
                 profileOwner : dataresult,
-                posts : dataresult.posts
+                posts : dataresult.posts,
+				isUserLoggedIn: req.isAuthenticated()
             });
         });
     });
@@ -76,7 +79,8 @@ module.exports = function(express, app, middleware, passport, User, Post) {
 			}
 			res.render('feed', {
 				user : req.user,
-				posts : docs
+				posts : docs,
+				isUserLoggedIn: req.isAuthenticated()
 			});
 		});
 	});
