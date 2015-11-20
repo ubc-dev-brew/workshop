@@ -1,9 +1,25 @@
 @import 'colors.scss';
 
+
+.input-file-container {
+  display: inline-block;
+}
+
+#inputCaption {
+  display: none;
+}
+
+.submit-to-feed {
+  float: right;
+}
+
 .post-feed-container {
-  .post-container {
-    padding: 1em 0;
-    
+  background: #fff;
+  padding: 1em 2em;
+  margin-bottom: 5em;
+  border-radius: 10px;
+  
+  .post-container {    
     &:first-child {
       margin-top: 2em;
     }
@@ -19,9 +35,13 @@
 
     h1.post-caption {
       font-size: 1em;
-      padding: 0.5em 0;
-      margin: 0;
+      padding: 1em;
+      margin: 0;     
       color: $ws-grey;
     }
   }
+}
+
+.status_messages {
+  display: none;
 }
