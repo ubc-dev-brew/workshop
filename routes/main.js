@@ -6,9 +6,17 @@ module.exports = function(express, app, middleware, passport, User, Post) {
 	// HOME / LOG-IN PAGE
   	// =====================================
 	router.get('/', function(req, res){
-		res.render('index', {
-			errorMessage: req.flash('loginMessage')
+		var query = Post.where().sort({ 'createdAt' : -1 }).limit(10);
+		query.find(function(err, docs) {
+			if(err) {
+				console.log("An error occurred while searching for recent posts: " + err.stack);
+			}
+			res.render('index', {
+				errorMessage: req.flash('loginMessage'),
+				posts : docs
+			});
 		});
+		
 	});
 	
 	router.post('/login', passport.authenticate('local-login', {
