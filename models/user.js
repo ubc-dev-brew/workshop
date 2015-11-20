@@ -19,16 +19,26 @@ var userSchema  = new Schema({
 		}
 	},
 	name : {
-		firstName : String,
-		lastName : String
+		firstName : {
+			type : String,
+			required : true
+		},
+		lastName : {
+			type : String,
+			required : true
+		}
 	},
 	profession : String,
 	bio : String,
-	posts : [{ 
-		imageUrl: String,
-		caption : String 
+	profilePictureUrl : String,
+	posts : [{
+		type: Schema.Types.ObjectId, 
+		ref: 'Post'
 	}],
-	profilePictureUrl : String
+	createdAt : {
+		type : Date, 
+		default : Date.now()
+	}
 });
 
 

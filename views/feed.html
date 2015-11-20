@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block title %}{% parent %} - Feed{% endblock %}
+
+{% block head %}
+	{% parent %}
+	<link rel="stylesheet" href="/css/dist/feed.css" />
+{% endblock %}
+
+{% block content %}
+{% parent %}
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-md-6 col-md-offset-3">		
+			<form action="/api/post" method="post" enctype="multipart/form-data" class="form-group feed-form well">
+				<div class="form-group">
+					<textarea class="form-control" rows="3" placeholder="Enter a description"></textarea>
+					<input type="text" class="form-control" id="inputCaption" name="caption" placeholder="Enter a description">
+				</div>
+				<div class="form-group input-file-container">
+					<input type="file" id="inputFile" name="post" accept="image/*">
+				</div>
+				<button type="submit" class="btn btn-success submit-to-feed">Submit</button>
+				<div class="status_messages">
+					<p class="bg-success">Uploading... Your post will appear shortly.</p>
+				</div>
+			</form>
+			
+		</div>
+	</div>
+	{% for post in posts %}
+	<div class="row">
+		<div class="col-xs-12 col-md-10 col-md-offset-1">
+			<!-- FEED -->
+			<div class="post-feed-container">				
+				<div class="post-container">
+					<img src="{{ post.imageUrl }}" class="post img-rounded"></img>
+					<h1 class="post-caption text-center">{{ post.caption }}</h1>
+				</div>				
+			</div>
+		</div>
+	</div><!-- .row -->
+	{% endfor %}
+</div><!-- .container -->
+{% endblock %}
+
+{% block scripts %}
+	{% parent %}
+{% endblock %}
