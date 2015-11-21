@@ -4,6 +4,7 @@
 
 {% block head %}
     {% parent %}
+    <link rel="stylesheet" href="/css/dist/signup.css" /> 
 {% endblock head %}
 
 {% block content %}
@@ -11,11 +12,14 @@
     {% if (errorMessage.length > 0) %}
         <h1>{{errorMessage}}</h1>
     {% endif %}
-
-    <div class="col-md-6">
+<div class="img2">
+  <div class="container">
+    <div class="row" style="margin-top: 120px">
+    <div class="col-md-6 signup col-md-offset-3">
         <!-- SIGNUP FORM -->
         <form action="/signup" method="post">
             <div class="form-group">
+                <div class="signup-header">Sign-up with <span style="color: #00b7be">Work</span>Shop</div>
                 <label>Email</label>
                 <input type="text" class="form-control" name="email" placeholder="Email">
             </div>
@@ -26,12 +30,18 @@
     
             <button type="submit" class="btn btn-warning btn-lg">Sign me up!</button>
         </form>
-    
+        <div class="form-footer">    
         <hr>
-    
         <p>Already have an account? <a href="/login">Login</a></p>
+        <p>Click here to sign-up with 
+        <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span>FB</a>
+        </p>
         <p>Or go <a href="/">home</a>.</p>
+        </div>
     </div>
+    </div>
+    </div>
+</div>
 {% endblock content %}
 
 {% block scripts %}
