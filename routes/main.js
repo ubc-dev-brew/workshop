@@ -20,7 +20,7 @@ module.exports = function(express, app, middleware, passport, User, Post) {
 	});
 	
 	router.post('/login', passport.authenticate('local-login', {
-		successRedirect: '/dashboard',
+		successRedirect: '/feed',
 		failureRedirect: '/',
 		failureFlash: true // Show flash messages
 	}));
@@ -35,7 +35,7 @@ module.exports = function(express, app, middleware, passport, User, Post) {
 	});
 	
 	router.post('/signup', passport.authenticate('local-signup', {
-		successRedirect: '/dashboard',
+		successRedirect: '/feed',
 		failureRedirect: '/signup',
 		failureFlash: true // Show flash messages
 	}));
@@ -92,7 +92,7 @@ module.exports = function(express, app, middleware, passport, User, Post) {
 	// Handle callback after authenticaiton
 	router.get('/auth/facebook/callback',
 		passport.authenticate('facebook', {
-			successRedirect : '/dashboard',
+			successRedirect : '/feed',
 			failureRedirect : '/'
 		}));
 		
