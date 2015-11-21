@@ -35,8 +35,11 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/" style="color: #e0e0e0">Jobs</a></li>
-                    <li><a href="/" style="color: #e0e0e0">Sign-in</a></li>
+                    {% if isUserLoggedIn %}
+                    <li><a href="/dashboard" style="color: #e0e0e0">Dashboard</a></li>
+                    <li><a href="/logout" style="color: #e0e0e0">Log-out</a></li>
+                    {% else %}
+                    {% endif %}
                 </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
