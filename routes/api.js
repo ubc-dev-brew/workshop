@@ -58,7 +58,9 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
     router.post('/user/update', middleware.isLoggedIn, function(req, res) {
         var form = new multipart.Form();
         var query;
+        var successMessage = "";
         var email;
+
         if(req.user._doc.auth.local) {
             query = User.where({ 'auth.local.email' : req.user._doc.auth.local.email });
             email = req.user._doc.auth.local.email;
@@ -85,6 +87,7 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
                       console.log("Updated user profile: " + JSON.stringify(result));
                     });
                 });
+                successMessage = "Refresh the page to see your updated profile!";
                 part.pipe(stream);
                 part.resume();
             }
@@ -115,11 +118,31 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
                     });
                 }
             }
+            if(name === 'firstName') {
+                if(value) {
+                    User.findOneAndUpdate(query, { $set: { 'name.firstName' : value }}, {upsert: true}, function(err, result) {
+                      if (err) {
+                        console.log("Error occured while updating user profile.");
+                      }
+                      console.log("Updated user profile: " + JSON.stringify(result));
+                    });
+                }
+            }
+            if(name === 'lastName') {
+                if(value) {
+                    User.findOneAndUpdate(query, { $set: { 'name.lastName' : value }}, {upsert: true}, function(err, result) {
+                      if (err) {
+                        console.log("Error occured while updating user profile.");
+                      }
+                      console.log("Updated user profile: " + JSON.stringify(result));
+                    });
+                }
+            }
         });
         
         form.parse(req);
         form.on('close', function() {
-            req.flash("successMessage", "Refresh page to see your profile picture!");
+            req.flash("successMessage", successMessage);
 			res.redirect('/dashboard');
 		});
     });

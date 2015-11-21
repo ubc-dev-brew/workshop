@@ -15,8 +15,10 @@
 </div>
 <!-- SUMMARY OF USER INFORMATION -->
 <div class="container" style="display: block" id="userSummary">
-    {% if user.auth.local.name.firstName %}}
-        <h3>Welcome to Workshop, {{user.auth.local.name.firstName}}!</h3>
+    {% if user.name.firstName %}
+    <h1>Welcome to Workshop, {{user.name.firstName}}!</h1>
+    {% else %}
+    <h1>Welcome to Workshop! To start off, click 'Edit' to add your name.</h1>
     {% endif %}
     {% if user.auth.local.email %}
         <h3>Email: {{user.auth.local.email}}</h3>
@@ -40,6 +42,10 @@
         <form class="form-inline" role="form" action="/api/user/update" method="post" enctype="multipart/form-data">
             <!-- UPLOAD PROFILE PICTURE -->
             <input type="file" name="file"><br>
+            <!-- ADD FIRST NAME -->
+            First Name: <input type="text" placeholder="{{user.name.firstName}}" class="form-control" name="firstName">
+            <!-- ADD LAST NAME -->
+            Last Name: <input type="text" placeholder="{{user.name.lastName}}" class="form-control" name="lastName">
             <!-- ADD PROFESSION -->
             Profession: <input type="text" placeholder="{{user.profession}}" class="form-control" name="profession">
             <!-- ADD BIO -->
