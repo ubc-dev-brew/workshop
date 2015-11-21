@@ -5,7 +5,7 @@ module.exports = function(express, app, middleware, passport, User, Post) {
 	// =====================================
 	// HOME / LOG-IN PAGE
   	// =====================================
-	router.get('/', function(req, res){
+	router.get('/', middleware.redirectIfLoggedIn, function(req, res){
 		var query = Post.where().sort({ 'createdAt' : -1 }).limit(10);
 		query.find(function(err, docs) {
 			if(err) {
@@ -13,8 +13,7 @@ module.exports = function(express, app, middleware, passport, User, Post) {
 			}
 			res.render('index', {
 				errorMessage: req.flash('loginMessage'),
-				posts : docs,
-				isUserLoggedOut: !req.isAuthenticated()
+				posts : doc
 			});
 		});
 		
@@ -29,7 +28,7 @@ module.exports = function(express, app, middleware, passport, User, Post) {
 	// =====================================
   	// SIGN-UP PAGE
   	// =====================================
-	router.get('/signup', function(req, res){
+	router.get('/signup', middleware.redirectIfLoggedIn, function(req, res){
 		res.render('signup', {
 			errorMessage: req.flash('signupMessage')
 		});
