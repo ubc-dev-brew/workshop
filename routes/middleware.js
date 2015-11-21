@@ -11,7 +11,8 @@ module.exports = {
 	redirectIfLoggedIn : function(req, res, next) {
 		if(req.isAuthenticated()) {
 			res.redirect('/feed');
+		} else {
+			next();			
 		}		
-		return next();
 	}
 }

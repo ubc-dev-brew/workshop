@@ -13,7 +13,7 @@ module.exports = function(express, app, middleware, passport, User, Post) {
 			}
 			res.render('index', {
 				errorMessage: req.flash('loginMessage'),
-				posts : doc
+				posts : docs
 			});
 		});
 		
