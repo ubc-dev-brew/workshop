@@ -46,7 +46,6 @@ module.exports = function(express, app, middleware, passport, User, Post) {
 	router.get('/dashboard', middleware.isLoggedIn, function(req, res){
 		res.render('dashboard', {
 			user : req.user,
-            successMessage : req.flash('successMessage') || "",
 			isUserLoggedIn: req.isAuthenticated()
 		});
 	});

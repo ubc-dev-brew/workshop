@@ -27,7 +27,7 @@ $('.submit-to-feed').on("click", function(event) {
 });
 
 $('.update-user').on("click", function(event) {
-    //disable the default form submission
+    // Disable the default form submission
     event.preventDefault();
     var formData = new FormData($('.update-form')[0]);
     // Show success message.
@@ -53,6 +53,5 @@ $('.update-user').on("click", function(event) {
             console.log('Error occured with dashboard update');  
         }
     });
-    
 });
     
