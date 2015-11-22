@@ -12,7 +12,6 @@ function showUserSummary() {
 };
 
 // Handle click event for the feed form
-
 $('.submit-to-feed').on("click", function(event) {
     event.preventDefault();
     var captionText = $('.form-group textarea').val();

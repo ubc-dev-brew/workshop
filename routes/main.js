@@ -5,14 +5,22 @@ module.exports = function(express, app, middleware, passport, User, Post) {
 	// =====================================
 	// HOME / LOG-IN PAGE
   	// =====================================
-	router.get('/', function(req, res){
-		res.render('index', {
-			errorMessage: req.flash('loginMessage')
+	router.get('/', middleware.redirectIfLoggedIn, function(req, res){
+		var query = Post.where().sort({ 'createdAt' : -1 }).limit(10);
+		query.find(function(err, docs) {
+			if(err) {
+				console.log("An error occurred while searching for recent posts: " + err.stack);
+			}
+			res.render('index', {
+				errorMessage: req.flash('loginMessage'),
+				posts : docs
+			});
 		});
+		
 	});
 	
 	router.post('/login', passport.authenticate('local-login', {
-		successRedirect: '/dashboard',
+		successRedirect: '/feed',
 		failureRedirect: '/',
 		failureFlash: true // Show flash messages
 	}));
@@ -20,14 +28,14 @@ module.exports = function(express, app, middleware, passport, User, Post) {
 	// =====================================
   	// SIGN-UP PAGE
   	// =====================================
-	router.get('/signup', function(req, res){
+	router.get('/signup', middleware.redirectIfLoggedIn, function(req, res){
 		res.render('signup', {
 			errorMessage: req.flash('signupMessage')
 		});
 	});
 	
 	router.post('/signup', passport.authenticate('local-signup', {
-		successRedirect: '/dashboard',
+		successRedirect: '/feed',
 		failureRedirect: '/signup',
 		failureFlash: true // Show flash messages
 	}));
@@ -38,7 +46,8 @@ module.exports = function(express, app, middleware, passport, User, Post) {
 	router.get('/dashboard', middleware.isLoggedIn, function(req, res){
 		res.render('dashboard', {
 			user : req.user,
-            successMessage : req.flash('successMessage') || ""
+            successMessage : req.flash('successMessage') || "",
+			isUserLoggedIn: req.isAuthenticated()
 		});
 	});
 	
@@ -52,7 +61,8 @@ module.exports = function(express, app, middleware, passport, User, Post) {
 			}
             res.render('profile', {
                 profileOwner : dataresult,
-                posts : dataresult.posts
+                posts : dataresult.posts,
+				isUserLoggedIn: req.isAuthenticated()
             });
         });
     });
@@ -68,7 +78,8 @@ module.exports = function(express, app, middleware, passport, User, Post) {
 			}
 			res.render('feed', {
 				user : req.user,
-				posts : docs
+				posts : docs,
+				isUserLoggedIn: req.isAuthenticated()
 			});
 		});
 	});
@@ -81,7 +92,7 @@ module.exports = function(express, app, middleware, passport, User, Post) {
 	// Handle callback after authenticaiton
 	router.get('/auth/facebook/callback',
 		passport.authenticate('facebook', {
-			successRedirect : '/dashboard',
+			successRedirect : '/feed',
 			failureRedirect : '/'
 		}));
 		
