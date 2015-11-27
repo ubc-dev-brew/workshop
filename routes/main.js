@@ -66,6 +66,15 @@ module.exports = function(express, app, middleware, passport, User, Post) {
             });
         });
     });
+	
+	// =====================================
+  	// GET ALL USERS
+	// =====================================	
+    router.get('/listAllUsers', function(req, res) {
+        User.find({}, {name: 1 }, function(err, dataresult) {
+			res.send(dataresult);
+		});
+    });
      
 	// =====================================
     // FEED

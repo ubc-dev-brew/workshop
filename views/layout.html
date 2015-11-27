@@ -10,9 +10,11 @@
 		<link rel="" type="image/x-icon" href="" />
 		{% if env == 'development' %}
 		<link rel="stylesheet" href="/vendor/css/src/bootstrap.css" />
+        <link rel="stylesheet" href="/vendor/css/src/jquery-ui.min.css" />
 		<link rel="stylesheet" href="/css/dist/source.css" />
 		{% else %}
 		<link rel="stylesheet" href="/vendor/css/dist/bootstrap.min.css" />
+        <link rel="stylesheet" href="/vendor/css/src/jquery-ui.min.css" />
 		<link rel="stylesheet" href="/css/dist/main.min.css" />
 		{% endif %}
 		{% endblock head %}
@@ -35,6 +37,13 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <form class="navbar-form navbar-left" role="search">
+                            <div class="form-group">
+                            <input type="text" class="form-control" id="project" placeholder="Search">
+                            </div>
+                        </form>
+                </li>
                     {% if isUserLoggedIn %}
                     <li><a href="/dashboard" style="color: #e0e0e0">Dashboard</a></li>
                     <li><a href="/logout" style="color: #e0e0e0">Log-out</a></li>
@@ -86,11 +95,12 @@
 		{% if env == 'development' %}
 		<script src="/vendor/js/dist/jquery-1.11.3.min.js"></script>
 		<script src="/vendor/js/dist/bootstrap.min.js"></script>
+        <script src="/vendor/js/src/jquery-ui.min.js"></script>
 		<script src="/js/dist/source.js"></script>
-        <script src="/js/src/source.js"></script>
 		{% else %}
 		<script src="/vendor/js/src/jquery-1.11.3.js"></script>
 		<script src="/vendor/js/src/bootstrap.js"></script>
+        <script src="/vendor/js/src/jquery-ui.min.js"></script>
 		<script src="/js/dist/main.min.js"></script>
 		{% endif %}
       	{% endblock scripts %}
