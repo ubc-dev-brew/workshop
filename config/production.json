@@ -26,8 +26,8 @@
         "callbackURL"   : "https://ubcdevbrew-workshop.herokuapp.com/auth/facebook/callback"
     },
   "cloudinary" : {
-    "cloudName" : "ubc-launch-pad",
-    "apiKey" : "277241555257295",
-    "apiSecret" : "8USVZJHmscSKPGMe7X3ifViSd-I"
+    "cloud_name" : "ubc-launch-pad",
+    "api_key" : "277241555257295",
+    "api_secret" : "8USVZJHmscSKPGMe7X3ifViSd-I"
   }
 }
