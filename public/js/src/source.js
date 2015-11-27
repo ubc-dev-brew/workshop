@@ -69,7 +69,6 @@ $('.update-user').on("click", function(event) {
             },
             create: function () {
                 $(this).data('ui-autocomplete')._renderItem = function (ul, item) {
-                    console.log(item);
                     return $('<li>')
                         .append('<a href="/users/' + item.value + '" >' + item.label + '</a>')
                         .appendTo(ul);
