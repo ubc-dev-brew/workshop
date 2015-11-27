@@ -1,12 +1,12 @@
 /* global $ */
 // Main JS file
 
-function showEditForm() {
-    document.getElementById('editForm').style.display="block";
-    document.getElementById('userSummary').style.display= "none";
+window.showEditForm = function() {
+    document.getElementById('editForm').style.display = "block";
+    document.getElementById('userSummary').style.display = "none";
 };
 
-function showUserSummary() {
+window.showUserSummary = function() {
     document.getElementById('editForm').style.display= "none";
     document.getElementById('userSummary').style.display= "block";
 };
