@@ -1,6 +1,106 @@
 // Main CSS file
 @import 'colors.scss';
+@import 'footer.scss';
 
 body {
-	background-color: $background_color !important;
+  background-color:#f2f2f2!important
+}
+
+.img1 {
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4) ), url("../../images/homescreen-header.png");
+    background-repeat: no-repeat;
+    background-position: center center; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: auto;
+    background-size: cover;
+    height: 600px;
+}
+
+
+.navbar:first-child {
+    margin-bottom: 0px;
+    border-radius: 0px;
+    min-height: 0px;
+    height: 45px;
+}
+
+.navbar-default {
+    border-color: transparent;
+    min-height: 0px;
+    height: 50px;
+}
+
+.signup-button {
+    height: 30px;
+    width: 80px;
+    background-color: #00a0a6;
+    border-radius: 5px;
+    margin: auto;
+    text-align: center;
+    color: #e0e0e0;
+}
+
+.link1:link {
+    text-decoration: none;
+}
+
+form {
+    background-color: rgba(0,0,0,0.2);
+    padding: 3em;
+    border-radius: 5px;
+    label {
+        color: white;
+    }    
+}
+
+.form-footer {
+    p {
+        color: white;;
+    }
+}
+
+.input-file-container {
+  display: inline-block;
+}
+
+#inputCaption {
+  display: none;
+}
+
+.submit-to-feed {
+  float: right;
+}
+
+.post-feed-container {
+  background: #fff;
+  padding: 1em 2em;
+  margin-bottom: 5em;
+  border-radius: 10px;
+  
+  .post-container {    
+    &:first-child {
+      margin-top: 2em;
+    }
+  
+    &:last-child {
+      margin-bottom: 2em;
+    }
+
+    img.post {
+      width: 100%;
+      height: auto;
+    }
+
+    h1.post-caption {
+      font-size: 1em;
+      padding: 1em;
+      margin: 0;     
+      color: $ws-grey;
+    }
+  }
+}
+
+.status_messages {
+  display: none;
 }

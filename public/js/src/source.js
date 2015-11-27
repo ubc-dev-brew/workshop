@@ -2,17 +2,16 @@
 // Main JS file
 
 function showEditForm() {
-    var editForm = document.getElementById('editForm').style.display="block";
-    var userSummary = document.getElementById('userSummary').style.display= "none";
+    document.getElementById('editForm').style.display="block";
+    document.getElementById('userSummary').style.display= "none";
 };
 
 function showUserSummary() {
-    var editForm = document.getElementById('editForm').style.display= "none";;
-    var userSummary = document.getElementById('userSummary').style.display= "block";
+    document.getElementById('editForm').style.display= "none";
+    document.getElementById('userSummary').style.display= "block";
 };
 
 // Handle click event for the feed form
-
 $('.submit-to-feed').on("click", function(event) {
     event.preventDefault();
     var captionText = $('.form-group textarea').val();
