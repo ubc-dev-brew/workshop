@@ -9,9 +9,8 @@
 {% block content %}
 {% parent %}
 
-<div class="container">
-    <img src="{{user.profilePictureUrl}}" class="img-rounded" width=100 height=100></img>
-    <p>{{successMessage}}</p>
+<div class="container" id="profilePicture">
+    <img src="{{user.profilePictureUrl}}" class="img-rounded" id="profilePictureUrl" width=100 height=100></img>
 </div>
 <!-- SUMMARY OF USER INFORMATION -->
 <div class="container" style="display: block" id="userSummary">
@@ -39,9 +38,9 @@
 <!-- HIDDEN EDIT FORM -->
 <div class="container" style="display: none" id="editForm">
 	<div class="row">
-        <form class="form-inline" role="form" action="/api/user/update" method="post" enctype="multipart/form-data">
+        <form class="form-inline update-form well" role="form" action="/api/user/update" method="post" enctype="multipart/form-data">
             <!-- UPLOAD PROFILE PICTURE -->
-            <input type="file" name="file"><br>
+            <input type="file" id="inputFile" name="file"><br>
             <!-- ADD FIRST NAME -->
             First Name: <input type="text" placeholder="{{user.name.firstName}}" class="form-control" name="firstName">
             <!-- ADD LAST NAME -->
@@ -49,12 +48,16 @@
             <!-- ADD PROFESSION -->
             Profession: <input type="text" placeholder="{{user.profession}}" class="form-control" name="profession">
             <!-- ADD BIO -->
-            Biography: <input type="text" placeholder="{{user.bio}}" class="form-control" name="bio">
-            <input type="submit" value="Update">
+            Biography: <input type="text" placeholder="{{user.bio}}" class="form-control" name="bio"><br>
+            <div class="status_messages" style="display: none">
+				<p class="bg-success">Updating...Your profile will be ready soon!</p>
+			</div>
+            <button type="submit" class="btn btn-success update-user">Update</button>
         </form>
         <button type="button" class="btn btn-default" id="dashboardBackButton" onclick="showUserSummary()">Back</button>
 	</div><!-- .row -->
 </div><br><!-- .container -->
+
 <a href="/logout" class="btn btn-default"><span class="fa fa-user"></span>Logout</a>
 <a href="/feed" class="btn btn-default">Feed</a>
 {% endblock content %}

@@ -46,7 +46,6 @@ module.exports = function(express, app, middleware, passport, User, Post) {
 	router.get('/dashboard', middleware.isLoggedIn, function(req, res){
 		res.render('dashboard', {
 			user : req.user,
-            successMessage : req.flash('successMessage') || "",
 			isUserLoggedIn: req.isAuthenticated()
 		});
 	});
@@ -72,7 +71,18 @@ module.exports = function(express, app, middleware, passport, User, Post) {
 	// =====================================	
     router.get('/listAllUsers', function(req, res) {
         User.find({}, {name: 1 }, function(err, dataresult) {
-			res.send(dataresult);
+			var i,
+				l = dataresult.length,
+				userArray = [];
+			
+			for (i = 0; i < l; i++) {
+				var userObject = new Object();
+				userObject.label = dataresult[i].name.firstName + ' ' + dataresult[i].name.lastName;
+				userObject.value = dataresult[i].id;
+				userArray.push(userObject);								
+			}
+			
+			res.send(userArray);
 		});
     });
      
