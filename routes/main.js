@@ -54,16 +54,42 @@ module.exports = function(express, app, middleware, passport, User, Post) {
   	// USER PROFILE PAGE
 	// =====================================	
     router.get('/users/:userId', function(req, res) {
-        User.findById(req.params.userId, function(err, dataresult){
+        User.findById(req.params.userId, function(err, user){
             if(err) {
 				console.log("An error occurred while retrieving this user: " + err.message);
 			}
-            res.render('profile', {
-                profileOwner : dataresult,
-                posts : dataresult.posts,
-				isUserLoggedIn: req.isAuthenticated()
-            });
+			Post.find({user: user}, function(err, posts) {
+				if(err) {
+					console.log("An error occurred while retrieving the posts for this user: " + err.message);
+				}
+				console.log(posts);
+	            res.render('profile', {
+	                profileOwner : user,
+	                posts : posts,
+					isUserLoggedIn: req.isAuthenticated()
+	            });
+			});
         });
+    });
+	
+	// =====================================
+  	// GET ALL USERS
+	// =====================================	
+    router.get('/listAllUsers', function(req, res) {
+        User.find({}, {name: 1 }, function(err, dataresult) {
+			var i,
+				l = dataresult.length,
+				userArray = [];
+			
+			for (i = 0; i < l; i++) {
+				var userObject = new Object();
+				userObject.label = dataresult[i].name.firstName + ' ' + dataresult[i].name.lastName;
+				userObject.value = dataresult[i].id;
+				userArray.push(userObject);								
+			}
+			
+			res.send(userArray);
+		});
     });
      
 	// =====================================
