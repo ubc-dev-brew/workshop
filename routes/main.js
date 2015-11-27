@@ -54,15 +54,21 @@ module.exports = function(express, app, middleware, passport, User, Post) {
   	// USER PROFILE PAGE
 	// =====================================	
     router.get('/users/:userId', function(req, res) {
-        User.findById(req.params.userId, function(err, dataresult){
+        User.findById(req.params.userId, function(err, user){
             if(err) {
 				console.log("An error occurred while retrieving this user: " + err.message);
 			}
-            res.render('profile', {
-                profileOwner : dataresult,
-                posts : dataresult.posts,
-				isUserLoggedIn: req.isAuthenticated()
-            });
+			Post.find({user: user}, function(err, posts) {
+				if(err) {
+					console.log("An error occurred while retrieving the posts for this user: " + err.message);
+				}
+				console.log(posts);
+	            res.render('profile', {
+	                profileOwner : user,
+	                posts : posts,
+					isUserLoggedIn: req.isAuthenticated()
+	            });
+			});
         });
     });
 	
