@@ -4,10 +4,13 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+        
 		
 		<title>{% block title %}WorkShop, INC.{% endblock %}</title>
 		{% block head %}
-		<link rel="" type="image/x-icon" href="" />
+                <!-- Icon for browser -->
+        <link rel="shortcut icon" type="image/x-icon" href="/images/logo.ico" /> 
+
 		{% if env == 'development' %}
 		<link rel="stylesheet" href="/vendor/css/src/bootstrap.css" />
 		<link rel="stylesheet" href="/css/dist/source.css" />
@@ -48,7 +51,7 @@
         <!-- Footer -->
             <hr size="2px" />
             <footer class="page-footer">
-                <ul> 
+<!--                 <ul> 
                     <li>
                         <a href="#">Tour</a>
                     </li> 
@@ -79,7 +82,7 @@
                     <li>
                         <a href="#">Privacy</a>
                     </li>
-                </ul> 
+                </ul>  -->
                 <p class="copyright-text"> © Copyright 2015, WorkShop, Inc. All rights reserved. </p>   
             </footer>
     	{% block scripts %}
