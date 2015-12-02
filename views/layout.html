@@ -10,9 +10,11 @@
 		<link rel="" type="image/x-icon" href="" />
 		{% if env == 'development' %}
 		<link rel="stylesheet" href="/vendor/css/src/bootstrap.css" />
+        <link rel="stylesheet" href="/vendor/css/src/jquery-ui.min.css" />
 		<link rel="stylesheet" href="/css/dist/source.css" />
 		{% else %}
 		<link rel="stylesheet" href="/vendor/css/dist/bootstrap.min.css" />
+        <link rel="stylesheet" href="/vendor/css/src/jquery-ui.min.css" />
 		<link rel="stylesheet" href="/css/dist/main.min.css" />
 		{% endif %}
 		{% endblock head %}
@@ -62,10 +64,12 @@
 		{% if env == 'development' %}
 		<script src="/vendor/js/dist/jquery-1.11.3.min.js"></script>
 		<script src="/vendor/js/dist/bootstrap.min.js"></script>
+        <script src="/vendor/js/src/jquery-ui.min.js"></script>
 		<script src="/js/dist/source.js"></script>
 		{% else %}
 		<script src="/vendor/js/src/jquery-1.11.3.js"></script>
 		<script src="/vendor/js/src/bootstrap.js"></script>
+        <script src="/vendor/js/src/jquery-ui.min.js"></script>
 		<script src="/js/dist/main.min.js"></script>
 		{% endif %}
       	{% endblock scripts %}

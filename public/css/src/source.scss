@@ -17,12 +17,28 @@ body {
     height: 600px;
 }
 
+.login {
+  max-width: 450px;
+  margin: auto;
+  float: none;
+}
+
+.homepage-header {
+    text-align: center;
+    font-size: 30px;
+    font-family: Fantasy; 
+    margin: auto; 
+    min-width: 580px;
+    width: 50%; 
+    padding: 37px;
+    color: #ffffff;
+}
 
 .navbar:first-child {
     margin-bottom: 0px;
     border-radius: 0px;
     min-height: 0px;
-    height: 45px;
+    height: 50px;
 }
 
 .navbar-default {
@@ -48,7 +64,7 @@ body {
 form {
     background-color: rgba(0,0,0,0.2);
     padding: 3em;
-    border-radius: 5px;
+    border-radius: 15px;
     label {
         color: white;
     }    
@@ -56,7 +72,7 @@ form {
 
 .form-footer {
     p {
-        color: white;;
+        color: white;
     }
 }
 
@@ -71,6 +87,7 @@ form {
 .submit-to-feed {
   float: right;
 }
+
 
 .post-feed-container {
   background: #fff;

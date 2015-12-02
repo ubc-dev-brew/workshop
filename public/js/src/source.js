@@ -55,3 +55,25 @@ $('.update-user').on("click", function(event) {
     });
 });
     
+// Search users on the platform
+(function(){
+  $.ajax({
+    url: "/listAllUsers",
+    type: "GET"
+  }).done(function(data) {
+    var users = data;
+    $("#project").autocomplete({
+            source: users,
+             select: function(event, ui) {
+                return false;
+            },
+            create: function () {
+                $(this).data('ui-autocomplete')._renderItem = function (ul, item) {
+                    return $('<li>')
+                        .append('<a href="/users/' + item.value + '" >' + item.label + '</a>')
+                        .appendTo(ul);
+                };
+            }
+        });   
+  });
+})();

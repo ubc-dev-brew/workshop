@@ -71,6 +71,26 @@ module.exports = function(express, app, middleware, passport, User, Post) {
 			});
         });
     });
+	
+	// =====================================
+  	// GET ALL USERS
+	// =====================================	
+    router.get('/listAllUsers', function(req, res) {
+        User.find({}, {name: 1 }, function(err, dataresult) {
+			var i,
+				l = dataresult.length,
+				userArray = [];
+			
+			for (i = 0; i < l; i++) {
+				var userObject = new Object();
+				userObject.label = dataresult[i].name.firstName + ' ' + dataresult[i].name.lastName;
+				userObject.value = dataresult[i].id;
+				userArray.push(userObject);								
+			}
+			
+			res.send(userArray);
+		});
+    });
      
 	// =====================================
     // FEED
