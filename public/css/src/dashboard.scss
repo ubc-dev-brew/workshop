@@ -20,3 +20,63 @@
         color: $ws-dark-grey;
     }
 }
+
+// Global Variables
+$primary-color: #31888e;
+$secondary-color: #f9f9fb;
+$font-color: #a2aabd;
+
+div {
+	color: white;
+}
+
+.jumbotron {
+	background-color: $primary-color;
+	font-family: 'Open Sans';
+	border-radius: 0 !important;
+	-moz-border-radius: 0 !important;
+	-webkit-border-radius: 0 !important;
+	
+	height: 130px;
+	padding-bottom: 0px;
+	border-bottom: 0px;
+
+	h1 {
+		font-size: 30px;
+		margin-top: 0px;
+	}
+}
+
+.main_content {
+	margin-top: 60px;
+	margin-bottom: 20px;
+	padding: 30px;
+	padding-bottom: 0px;
+	background-color: $secondary-color;
+
+	h3, h4 {
+		color: $font-color;
+	}
+	h2 {
+		color: $primary-color;
+	}
+
+	.form-inline {
+		color: $primary-color;
+	}
+	
+	.form-inline{
+		text-align: center;
+	}
+	.btn {
+		background-color: #ff3366;
+		width: 100%;
+		border-radius: 0;
+		text-align: center;
+		color: white;
+	}
+}
+
+.profilepic {
+	text-align: center;
+}
