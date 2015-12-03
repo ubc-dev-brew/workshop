@@ -10,20 +10,18 @@
 {% block content %}
 {% parent %}
 <div class="container">
-    <div class="row" style="height: 20px">
-	<div class="row">
+    <div class="row" style="height: 20px; margin-top: 20px">
         <div class="col-xs-12"></div>
     </div>
+	<div class="row">
 		<div class="col-xs-12 col-md-3">
 			<!-- Profile -->
 			<div class="well profile">
 				<img src="{{profileOwner.profilePictureUrl}}" class="profile img-rounded" />
 				<h1 class="profile">Welcome to {{profileOwner.name.firstName}}'s Workshop</h1>
 				<h2 class="profile">Profession:</h2>
-				<br />
 				<p class="profile">{{profileOwner.profession}}</p>
 				<h2 class="profile">Bio:</h2>
-				<br />
 				<p class="profile">{{profileOwner.bio}}</p>
 			</div>
 		</div>

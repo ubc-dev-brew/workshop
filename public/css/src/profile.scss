@@ -2,6 +2,9 @@
 @import 'feed.scss';
 
 .profile {
+    background: white;
+    border-radius: 10px;
+    
   	img.profile {
         padding: 0.5em 0 1em 0;
         width: 100%;
@@ -17,10 +20,9 @@
   	h2.profile {
         font-size: 1.5em;
         color: $ws_light_grey;
-        padding-bottom: 0.5em; 
   	}
   	p.profile {
-        font-size: 1.5em;
+        font-size: 1.25em;
         color: $ws_dark_grey;
         padding-bottom: 2em;
   	}

@@ -10,7 +10,7 @@
     {% parent %}
 
 <!-- Header Section -->
-<div class="img1">   
+<div class="img1" style="margin-bottom: 2em;">   
   <!--Log in form -->
 {% if (errorMessage.length > 0) %}
     <h1>{{errorMessage}}</h1>
@@ -43,13 +43,6 @@
     </div>
     </div> 
 </div> 
-
-<!-- Mid Navbar -->
-<nav class="navbar navbar-default">
-<div class="container"> 
-</div><!-- /.container-fluid -->
-</nav> 
-
 <!-- Grid System -->
 <div class="container">
   {% for post in posts %}
