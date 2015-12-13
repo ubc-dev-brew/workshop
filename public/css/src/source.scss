@@ -26,7 +26,7 @@ body {
 .homepage-header {
     text-align: center;
     font-size: 30px;
-    font-family: Fantasy; 
+    font-family: 'Open Sans'; 
     margin: auto; 
     min-width: 580px;
     width: 50%; 
@@ -64,6 +64,7 @@ body {
 .form-footer {
     p {
         color: white;
+        font-family: 'Roboto';
     }
 }
 
@@ -105,6 +106,7 @@ body {
       padding: 1em;
       margin: 0;     
       color: $ws-grey;
+      font-family: 'Roboto';
     }
   }
 }

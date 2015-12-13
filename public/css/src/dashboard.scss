@@ -53,12 +53,16 @@ div {
 	padding: 30px;
 	padding-bottom: 0px;
 	background-color: $secondary-color;
+	font-family: 'Open Sans';
 
 	h3, h4 {
 		color: $font-color;
 	}
 	h2 {
 		color: $primary-color;
+	}
+	p {
+		font-family: 'Roboto';
 	}
 
 	.form-inline {
