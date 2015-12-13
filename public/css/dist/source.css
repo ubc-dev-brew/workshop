@@ -39,7 +39,7 @@ body {
 .homepage-header {
   text-align: center;
   font-size: 30px;
-  font-family: Fantasy;
+  font-family: 'Open Sans';
   margin: auto;
   min-width: 580px;
   width: 50%;
@@ -70,7 +70,8 @@ body {
   text-decoration: none; }
 
 .form-footer p {
-  color: white; }
+  color: white;
+  font-family: 'Roboto'; }
 
 .input-file-container {
   display: inline-block; }
@@ -97,7 +98,8 @@ body {
     font-size: 1em;
     padding: 1em;
     margin: 0;
-    color: #837c73; }
+    color: #837c73;
+    font-family: 'Roboto'; }
 
 .status_messages {
   display: none; }
