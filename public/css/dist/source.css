@@ -31,11 +31,26 @@ body {
   background-size: cover;
   height: 600px; }
 
+.login {
+  max-width: 450px;
+  margin: auto;
+  float: none; }
+
+.homepage-header {
+  text-align: center;
+  font-size: 30px;
+  font-family: Fantasy;
+  margin: auto;
+  min-width: 580px;
+  width: 50%;
+  padding: 37px;
+  color: #ffffff; }
+
 .navbar:first-child {
   margin-bottom: 0px;
   border-radius: 0px;
   min-height: 0px;
-  height: 45px; }
+  height: 50px; }
 
 .navbar-default {
   border-color: transparent;
@@ -53,13 +68,6 @@ body {
 
 .link1:link {
   text-decoration: none; }
-
-form {
-  background-color: rgba(0, 0, 0, 0.2);
-  padding: 3em;
-  border-radius: 5px; }
-  form label {
-    color: white; }
 
 .form-footer p {
   color: white; }

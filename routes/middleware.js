@@ -5,5 +5,14 @@ module.exports = {
 			return next();
 		}		
 		res.redirect('/');
+	},
+	
+	// Route middlewares to check block access to pages if a user is logged in
+	redirectIfLoggedIn : function(req, res, next) {
+		if(req.isAuthenticated()) {
+			res.redirect('/feed');
+		} else {
+			next();			
+		}		
 	}
 }

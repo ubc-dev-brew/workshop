@@ -4,53 +4,86 @@
 
 {% block head %}
     {% parent %}
+    <link rel="stylesheet" href="/css/dist/dashboard.css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 {% endblock head %}
 
 {% block content %}
 {% parent %}
 
 <div class="container">
-    <img src="{{user.profilePictureUrl}}" class="img-rounded" width=100 height=100></img>
-    <p>{{successMessage}}</p>
+  <div class="jumbotron">
+    <h1>| Your Dashboard</h1> 
+  </div>
 </div>
-<!-- SUMMARY OF USER INFORMATION -->
-<div class="container" style="display: block" id="userSummary">
-    {% if user.auth.local.name.firstName %}}
-        <h3>Welcome to Workshop, {{user.auth.local.name.firstName}}!</h3>
-    {% endif %}
-    {% if user.auth.local.email %}
-        <h3>Email: {{user.auth.local.email}}</h3>
-    {% endif %}
-    {% if user.auth.facebook.id %}
-        <h3>Facebook Id: {{user.auth.facebook.id}}</h3>
-    {% endif %}
-    {% if user.auth.facebook.name %}
-        <h3>Facebook Name: {{user.auth.facebook.name}}</h3>
-    {% endif %}
-    {% if user.auth.facebook.email %}
-        <h3>Facebook Email: {{user.auth.facebook.email}}</h3>
-    {% endif %}
-    <h3>Profession: {{user.profession}}</h3>
-    <h3>Biography: {{user.bio}}</h3>
-    <button type="button" class="btn btn-default" id="editButton" onclick="showEditForm()">Edit</button><br>
-</div><br>
-<!-- HIDDEN EDIT FORM -->
-<div class="container" style="display: none" id="editForm">
-	<div class="row">
-        <form class="form-inline" role="form" action="/api/user/update" method="post" enctype="multipart/form-data">
-            <!-- UPLOAD PROFILE PICTURE -->
-            <input type="file" name="file"><br>
-            <!-- ADD PROFESSION -->
-            Profession: <input type="text" placeholder="{{user.profession}}" class="form-control" name="profession">
-            <!-- ADD BIO -->
-            Biography: <input type="text" placeholder="{{user.bio}}" class="form-control" name="bio">
-            <input type="submit" value="Update">
-        </form>
-        <button type="button" class="btn btn-default" id="dashboardBackButton" onclick="showUserSummary()">Back</button>
-	</div><!-- .row -->
-</div><br><!-- .container -->
-<a href="/logout" class="btn btn-default"><span class="fa fa-user"></span>Logout</a>
-<a href="/feed" class="btn btn-default">Feed</a>
+
+<div class="container">
+		<div class="row">
+  			<div class="col-md-6 col-md-offset-3">
+  				<div class="main_content">
+				<div class="profilepic">
+				    <img src="{{user.profilePictureUrl}}" class="img-rounded" width=100 height=100></img>
+				    <p>{{successMessage}}</p>
+				    <br>
+				</div>
+
+				<!-- SUMMARY OF USER INFORMATION -->
+				<div style="display: block" id="userSummary">
+				    {% if user.name.firstName %}
+				    <h2>Welcome {{user.name.firstName}}!</h1>
+				    <br>
+				    {% else %}
+				    <h1>Welcome to Workshop! To start off, click 'Edit' to add your name.</h1>
+				    {% endif %}
+				    {% if user.auth.local.email %}
+				        <h4>Email: {{user.auth.local.email}}</h3>
+				    {% endif %}
+				    {% if user.auth.facebook.id %}
+				        <h4>Facebook Id: {{user.auth.facebook.id}}</h3>
+				    {% endif %}
+				    {% if user.auth.facebook.name %}
+				        <h4>Facebook Name: {{user.auth.facebook.name}}</h3>
+				    {% endif %}
+				    {% if user.auth.facebook.email %}
+				        <h4>Facebook Email: {{user.auth.facebook.email}}</h3>
+				    {% endif %}
+				    <h4>Profession: {{user.profession}}</h3>
+				    <h4>Biography: {{user.bio}}</h3>
+				    <br>
+				    <br>
+				    <button type="button" class="btn btn-default" id="editButton" onclick="showEditForm()">Edit</button>
+				</div>
+				<!-- HIDDEN EDIT FORM -->
+				<div style="display: none" id="editForm">
+					<div class="row">
+				        <form class="form-inline" role="form" action="/api/user/update" method="post" enctype="multipart/form-data">
+				            <!-- UPLOAD PROFILE PICTURE -->
+				            <input type="file" name="file"><br>
+				            <!-- ADD FIRST NAME -->
+				            First Name: <input type="text" placeholder="{{user.name.firstName}}" class="form-control" name="firstName">
+				            <br>
+				            <!-- ADD LAST NAME -->
+				            Last Name: <input type="text" placeholder="{{user.name.lastName}}" class="form-control" name="lastName">
+				            <br>
+				            <!-- ADD PROFESSION -->
+				            Profession: <input type="text" placeholder="{{user.profession}}" class="form-control" name="profession">
+				            <br>
+				            <!-- ADD BIO -->
+				            Biography: <input type="text" placeholder="{{user.bio}}" class="form-control" name="bio">
+				            <br>
+				            <br>d
+				            <input type="submit" value="Update">
+				        </form>	
+				        <br>
+				        <br>
+				        <button type="button" class="btn btn-default" id="dashboardBackButton" onclick="showUserSummary()">Back</button>
+					</div><!-- .row -->
+				</div><br><!-- .container -->
+			</div>
+		</div>
+	</div>
+</div>
+
 {% endblock content %}
 
 {% block scripts %}

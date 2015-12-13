@@ -1,57 +1,6 @@
 module.exports = function(express, app, middleware, multipart, cloudinary, User, Post) {
 	var router = express.Router();
 	
-	router.post('/profile', function(req, res) {
-		var form = new multipart.Form();
-		var userModel = {};
-		
-		form.on('error', function(err) {
-			console.log("Error occurred while uploading a profile picture: " + err.stack);
-			// TODO handle error condition properly (ajax response to form)
-		});
-		
-		form.on('part', function(part) {
-			if(!part.filename) {
-				// The part is a form field, not a file
-				console.dir(part);
-				part.resume();
-			}
-			if(part.filename) {
-				// The part is a file, stream to Cloudinary
-				var stream = cloudinary.uploader.upload_stream(function(result) {
-					userModel.profilePictureUrl = result.url;
-				});
-				part.pipe(stream);
-				part.resume();
-			}
-			part.on('error', function(err) {
-				console.log("Error occurred while streaming a profile picture part: " + err.stack);
-				// TODO handle error condition properly (ajax response to form)
-			});
-		});
-		
-		form.on('field', function(name, value) {
-			userModel[name] = value;
-		});
-		
-		form.parse(req, function(err, fields, files) {
-			if(err) {
-				console.log("Error occurred while parsing a multi-part form.\nHTTP POST /profile\n" + err.stack);
-				// TODO handle error condition properly (ajax response to form)
-			}
-			var newUser = new User(userModel);
-			newUser.save(function(err, result) {
-				if(err) {
-					console.log("Error occurred while saving a new user to MongoDB: " + err.stack);
-					// TODO handle error condition properly (ajax response to form)
-				}
-				console.log("Added new user. " + JSON.stringify(result));
-			});
-		});
-		
-		res.render('feed');
-	});
-    
     // ================================================
     // UPDATE USER INFORMATION
 	// ================================================
@@ -59,6 +8,9 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
         var form = new multipart.Form();
         var query;
         var email;
+        var jsonResponse = {};
+        var pictureUpdate = false;
+
         if(req.user._doc.auth.local) {
             query = User.where({ 'auth.local.email' : req.user._doc.auth.local.email });
             email = req.user._doc.auth.local.email;
@@ -77,7 +29,10 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
                 part.resume();
             }
             if(part.filename) {
+                pictureUpdate = true;
                 var stream = cloudinary.uploader.upload_stream(function(result) {
+                    jsonResponse["profilePicUrl"] = result.url;
+                    res.send(JSON.stringify(jsonResponse));
                     User.findOneAndUpdate(query, { $set: { profilePictureUrl : result.url }}, {upsert: true}, function(err, result) {
                       if (err) {
                         console.log("Error occured while updating user profile.");
@@ -97,6 +52,7 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
         form.on('field', function(name, value) {
             if(name === 'profession') {
                 if(value) {
+                    jsonResponse["profession"] = value;
                     User.findOneAndUpdate(query, { $set: { profession : value }}, {upsert: true}, function(err, result) {
                       if (err) {
                         console.log("Error occured while updating user profile.");
@@ -107,7 +63,30 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
             }
             if(name === 'bio') {
                 if(value) {
+                    jsonResponse["bio"] = value;
                     User.findOneAndUpdate(query, { $set: { bio : value }}, {upsert: true}, function(err, result) {
+                      if (err) {
+                        console.log("Error occured while updating user profile.");
+                      }
+                      console.log("Updated user profile: " + JSON.stringify(result));
+                    });
+                }
+            }
+            if(name === 'firstName') {
+                if(value) {
+                    jsonResponse["firstName"] = value;
+                    User.findOneAndUpdate(query, { $set: { 'name.firstName' : value }}, {upsert: true}, function(err, result) {
+                      if (err) {
+                        console.log("Error occured while updating user profile.");
+                      }
+                      console.log("Updated user profile: " + JSON.stringify(result));
+                    });
+                }
+            }
+            if(name === 'lastName') {
+                if(value) {
+                    jsonResponse["lastName"] = value;
+                    User.findOneAndUpdate(query, { $set: { 'name.lastName' : value }}, {upsert: true}, function(err, result) {
                       if (err) {
                         console.log("Error occured while updating user profile.");
                       }
@@ -119,8 +98,9 @@ module.exports = function(express, app, middleware, multipart, cloudinary, User,
         
         form.parse(req);
         form.on('close', function() {
-            req.flash("successMessage", "Refresh page to see your profile picture!");
-			res.redirect('/dashboard');
+            if(!pictureUpdate) {
+                res.send(JSON.stringify(jsonResponse));
+            }
 		});
     });
     
